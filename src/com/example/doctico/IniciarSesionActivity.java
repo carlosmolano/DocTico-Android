@@ -3,6 +3,8 @@ package com.example.doctico;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +33,26 @@ public class IniciarSesionActivity extends Activity {
 		entrada_email = (EditText)findViewById(R.id.entrada_email);               // Obtener el valor del imput del correo
 		entrada_contraseña = (EditText)findViewById(R.id.entrada_password);       // Obtener el valor del input de contrase�a
 	}	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.iniciar_sesion, menu);
+	    return true;	    
+	}
+
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.crear_cuenta) {
+		      Intent intent = new Intent(this, CrearCuentaActivity.class);
+		      startActivity(intent);
+			  return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	
     private OnClickListener Eventos_Botones = new OnClickListener()    // Metodo de evento de botones
     {

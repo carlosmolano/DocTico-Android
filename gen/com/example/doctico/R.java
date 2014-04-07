@@ -233,6 +233,7 @@ containing a value of this type.
         public static final int btn_to_control_presion=0x7f050018;
         public static final int btn_to_crear_cuenta=0x7f050014;
         public static final int container=0x7f050005;
+        public static final int crear_cuenta=0x7f05001b;
         public static final int entrada_confirmar_password_crear_cuenta=0x7f05000f;
         public static final int entrada_email=0x7f050011;
         public static final int entrada_email_crear_cuenta=0x7f05000c;
@@ -251,10 +252,10 @@ containing a value of this type.
         public static final int textView4=0x7f050006;
         public static final int textView5=0x7f050008;
         public static final int textView6=0x7f05000e;
-        public static final int tipo_mapa_hibrido=0x7f05001d;
-        public static final int tipo_mapa_normal=0x7f05001b;
-        public static final int tipo_mapa_satelite=0x7f05001c;
-        public static final int twitter=0x7f05001e;
+        public static final int tipo_mapa_hibrido=0x7f05001e;
+        public static final int tipo_mapa_normal=0x7f05001c;
+        public static final int tipo_mapa_satelite=0x7f05001d;
+        public static final int twitter=0x7f05001f;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;

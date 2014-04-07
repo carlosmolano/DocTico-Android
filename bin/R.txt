@@ -69,6 +69,7 @@ int id btn_to_control_citas 0x7f050019
 int id btn_to_control_presion 0x7f050018
 int id btn_to_crear_cuenta 0x7f050014
 int id container 0x7f050005
+int id crear_cuenta 0x7f05001b
 int id entrada_confirmar_password_crear_cuenta 0x7f05000f
 int id entrada_email 0x7f050011
 int id entrada_email_crear_cuenta 0x7f05000c
@@ -87,10 +88,10 @@ int id textView3 0x7f05000b
 int id textView4 0x7f050006
 int id textView5 0x7f050008
 int id textView6 0x7f05000e
-int id tipo_mapa_hibrido 0x7f05001d
-int id tipo_mapa_normal 0x7f05001b
-int id tipo_mapa_satelite 0x7f05001c
-int id twitter 0x7f05001e
+int id tipo_mapa_hibrido 0x7f05001e
+int id tipo_mapa_normal 0x7f05001c
+int id tipo_mapa_satelite 0x7f05001d
+int id twitter 0x7f05001f
 int integer google_play_services_version 0x7f070000
 int layout activity_agregar_cita 0x7f030000
 int layout activity_control_citas 0x7f030001
