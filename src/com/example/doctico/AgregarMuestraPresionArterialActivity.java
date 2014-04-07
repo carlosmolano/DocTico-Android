@@ -1,42 +1,36 @@
 package com.example.doctico;
 
+import java.util.Calendar;
+
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.EditText;
 
 public class AgregarMuestraPresionArterialActivity extends Activity {
+	
+	EditText miTiempo;
+	EditText miFecha;
+	
+	EditText miSistolica;
+	EditText miDiastolica;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agregar_muestra_presion_arterial);
-	}
+		
+		miTiempo = (EditText) findViewById(R.id.texto_hora);
+		miFecha = (EditText) findViewById(R.id.texto_fecha);
+		
+		miSistolica = (EditText) findViewById(R.id.texto_sistolica);
+		miDiastolica = (EditText) findViewById(R.id.texto_diastolica);
+		
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater()
-				.inflate(R.menu.agregar_muestra_presion_arterial, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		Calendar calendar = Calendar.getInstance();
+		miTiempo.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+		miFecha.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" +  calendar.get(Calendar.YEAR));
+		
+		miSistolica.setText("120");
+		miDiastolica.setText("60");
 	}
 }

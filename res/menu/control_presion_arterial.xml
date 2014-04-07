@@ -7,5 +7,15 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="Nueva Muestra"/>
+    
+    <item
+        android:id="@+id/mi_estado_semanal"
+        android:orderInCategory="100"
+        android:title="Graficar Mi Estado Semanal"/>
+    
+    <item
+        android:id="@+id/mi_estado_mensual"
+        android:orderInCategory="100"
+        android:title="Graficar Mi Estado Semanal"/>
 
 </menu>

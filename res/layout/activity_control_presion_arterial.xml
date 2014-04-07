@@ -28,6 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="100dp"
-        android:text="@string/funcionalidad_por_implementar" />
+        android:text="aca deberia ir una tabla" />
     
 </LinearLayout>
