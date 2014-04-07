@@ -1,7 +1,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.doctico.MapaCentrosDeSaludCercanosActivity" >
-    <item android:id="@+id/tipo_mapa_normal" android:titleCondensed="Mapa Tipo Normal" android:title="Mapa Tipo Normal"></item>
-    <item android:id="@+id/tipo_mapa_satelite" android:titleCondensed="Mapa Tipo Satelite" android:title="Mapa Tipo Satelite"></item>
-    <item android:id="@+id/tipo_mapa_hibrido" android:titleCondensed="Mapa Tipo Hibrido" android:title="Mapa Tipo Hibrido"></item>
+    <item 
+        android:id="@+id/tipo_mapa_normal" 
+        android:titleCondensed="Mapa Tipo Normal" 
+        android:title="Mapa Tipo Normal">
+    </item>
+    
+    <item 
+        android:id="@+id/tipo_mapa_satelite" 
+        android:titleCondensed="Mapa Tipo Satelite" 
+        android:title="Mapa Tipo Satelite">
+    </item>
+    
+    <item 
+        android:id="@+id/tipo_mapa_hibrido" 
+        android:titleCondensed="Mapa Tipo Hibrido" 
+        android:title="Mapa Tipo Hibrido">
+    </item>
+    
+    <item android:id="@+id/twitter" 
+        android:title="Twittear"
+        android:showAsAction="always">
+    </item>
+    
 </menu>

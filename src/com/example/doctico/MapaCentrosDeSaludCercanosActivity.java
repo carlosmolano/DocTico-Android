@@ -59,17 +59,21 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		       .setPositiveButton("Twittear", new DialogInterface.OnClickListener() {
 		            public void onClick(DialogInterface dialog, int id) {
 		                // Evento del boton twittear
-     	
-		    			String tweetUrl = "https://twitter.com/intent/tweet?text=Estoy usando la App DocTico doctico.herokuapp.com";
-						Uri uri = Uri.parse(tweetUrl);
-						startActivity(new Intent(Intent.ACTION_VIEW, uri));
-
+		            	twittear();
 		            }
 		        });
     	
     	AlertDialog dialog = builder.create();
 		dialog.show();
 		return false;
+	}
+	
+	
+	private void twittear()
+	{
+		String tweetUrl = "https://twitter.com/intent/tweet?text=Estoy usando la App DocTico doctico.herokuapp.com";
+		Uri uri = Uri.parse(tweetUrl);
+		startActivity(new Intent(Intent.ACTION_VIEW, uri));
 	}
 	
 	
@@ -138,6 +142,10 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		}
 		else if (id == R.id.tipo_mapa_hibrido) {
 			map.setMapType(GoogleMap.MAP_TYPE_HYBRID); 
+			return true;
+		}
+		else if (id == R.id.twitter) {
+			twittear(); 
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
