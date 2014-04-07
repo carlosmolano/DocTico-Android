@@ -1,7 +1,122 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.doctico.AgregarCitaActivity"
-    tools:ignore="MergeRootFrame" />
+    android:orientation="vertical" 
+    android:background="#EBF4F6">
+
+    <TextView
+        android:id="@+id/textViewCita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="25dp"
+        android:text="Agregar Nueva Cita" 
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="40dp"
+        android:text="Identificador de la Cita" />
+
+    <EditText
+        android:id="@+id/entrada_nombre_cita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:paddingLeft="40dp"
+        android:inputType="text" >
+
+            <requestFocus />
+    </EditText>
+
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="40dp"
+            android:text="Hora" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="135dp"
+            android:text="Fecha" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/texto_hora"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:paddingLeft="40dp"
+            android:inputType="time" />
+
+        <EditText
+            android:id="@+id/texto_fecha"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:paddingLeft="40dp"
+            android:inputType="date" />
+
+    </LinearLayout>
+    
+    
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/texto_centro_salud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="40dp"
+            android:text="Centro de Salud" />
+
+        <TextView
+            android:id="@+id/texto_recordatorio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="78dp"
+            android:text="Recordatorio" />
+
+    </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" >
+
+       <ToggleButton
+           android:id="@+id/toggleButton1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="ToggleButton" />
+
+   </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop = "60dp"
+        android:text="Agregar Cita" />
+    
+</LinearLayout>
