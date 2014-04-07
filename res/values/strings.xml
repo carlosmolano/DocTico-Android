@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DocTico</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_iniciar_sesion">Iniciar Sesion</string>
+    <string name="crear_cuenta">Crear Cuenta en DocTico</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="nombre">Nombre</string>
+    <string name="confirmar_password">Confirmar Contraseña</string>
+    <string name="saludo">DocTico, la  aplicacion que te permite encontrar los centros de salud mas cercanos a tu posición.</string>
+    <string name="menu_funcionalidades">Funcionalidades de DocTico</string>
+    <string name="centros_de_salud_privados">Centros de Salud Privados</string>
+    <string name="control_de_citas">Control de Citas</string>
+    <string name="centros_de_salud_ccss">Centros de Salud CCSS</string>
+    <string name="control_arterial">Control de Presion Arterial</string>
+    <string name="title_activity_mapa_centros_de_salud_cercanos">Mapa Centros De Salud Cercanos</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_control_citas">Control Citas</string>
+    <string name="control_citas">Control Citas</string>
+    <string name="funcionalidad_por_implementar">Funcionalidad por Implementar</string>
+    <string name="title_activity_control_presion_arterial">Control Presion Arterial</string>
+    <string name="control_presion_arterial">Control Presion Arterial</string>
+    <string name="title_activity_twitter">Twitter</string>
+    <string name="title_activity_crear_cuenta">CrearCuentaActivity</string>
+    <string name="title_activity_menu_funcionalidades">MenuFuncionalidadesActivity</string>
+
+</resources>
