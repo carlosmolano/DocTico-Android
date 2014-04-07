@@ -12,8 +12,7 @@ import android.view.View.OnClickListener;
 
 public class IniciarSesionActivity extends Activity {
 	
-	private Button boton_iniciar_sesion;             
-	private Button boton_crear_cuenta;        
+	private Button boton_iniciar_sesion;        
 	private String email;				       // Para guardar el email digitado por el usuario
 	private String password;				   // Para guardar el password digitado por el usuario
 	private EditText entrada_email;           // Entrada del username
@@ -26,9 +25,6 @@ public class IniciarSesionActivity extends Activity {
 		
 		boton_iniciar_sesion = (Button)findViewById(R.id.btn_inciar_sesion);      
 		boton_iniciar_sesion.setOnClickListener(Eventos_Botones);                // Llamar a los eventos
-		
-		boton_crear_cuenta = (Button)findViewById(R.id.btn_to_crear_cuenta);     
-		boton_crear_cuenta.setOnClickListener(Eventos_Botones);                  // Llamar a los eventos
 		
 		entrada_email = (EditText)findViewById(R.id.entrada_email);               // Obtener el valor del imput del correo
 		entrada_contraseña = (EditText)findViewById(R.id.entrada_password);       // Obtener el valor del input de contrase�a
@@ -67,9 +63,6 @@ public class IniciarSesionActivity extends Activity {
     			
     		 	Ventana_Menu_Funcionalidades(v);
     		}
-    		
-    		else if(v.getId() == boton_crear_cuenta.getId())          // Evento de crear una cuenta
-    			Ventana_Crear_Cuenta(v);
     	}
     };
 	

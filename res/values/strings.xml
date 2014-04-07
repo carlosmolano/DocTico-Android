@@ -26,6 +26,7 @@
     <string name="title_activity_twitter">Twitter</string>
     <string name="title_activity_crear_cuenta">CrearCuentaActivity</string>
     <string name="title_activity_menu_funcionalidades">MenuFuncionalidadesActivity</string>
-    <string name="title_activity_agregar_cita">AgregarCitaActivity</string>
+    <string name="title_activity_agregar_cita">Agregar Cita</string>
+    <string name="title_activity_agregar_muestra_presion_arterial">Agregar Muestra</string>
 
 </resources>
