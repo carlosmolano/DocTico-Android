@@ -69,6 +69,7 @@ int id btn_to_centros_de_salud 0x7f05001d
 int id btn_to_control_citas 0x7f05001f
 int id btn_to_control_presion 0x7f05001e
 int id button1 0x7f05000d
+int id compartir 0x7f050029
 int id crear_cuenta 0x7f050025
 int id entrada_confirmar_password_crear_cuenta 0x7f050017
 int id entrada_email 0x7f050019
@@ -101,7 +102,6 @@ int id texto_sistolica 0x7f050011
 int id tipo_mapa_hibrido 0x7f050028
 int id tipo_mapa_normal 0x7f050026
 int id tipo_mapa_satelite 0x7f050027
-int id twitter 0x7f050029
 int integer google_play_services_version 0x7f070000
 int layout activity_agregar_cita 0x7f030000
 int layout activity_agregar_muestra_presion_arterial 0x7f030001

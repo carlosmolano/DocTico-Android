@@ -233,6 +233,7 @@ containing a value of this type.
         public static final int btn_to_control_citas=0x7f05001f;
         public static final int btn_to_control_presion=0x7f05001e;
         public static final int button1=0x7f05000d;
+        public static final int compartir=0x7f050029;
         public static final int crear_cuenta=0x7f050025;
         public static final int entrada_confirmar_password_crear_cuenta=0x7f050017;
         public static final int entrada_email=0x7f050019;
@@ -265,7 +266,6 @@ containing a value of this type.
         public static final int tipo_mapa_hibrido=0x7f050028;
         public static final int tipo_mapa_normal=0x7f050026;
         public static final int tipo_mapa_satelite=0x7f050027;
-        public static final int twitter=0x7f050029;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;

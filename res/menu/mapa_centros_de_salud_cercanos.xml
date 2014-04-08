@@ -19,8 +19,8 @@
         android:title="Mapa Tipo Hibrido">
     </item>
     
-    <item android:id="@+id/twitter" 
-        android:title="Twittear"
+    <item android:id="@+id/compartir" 
+        android:title="Compartir"
         android:showAsAction="always">
     </item>
     

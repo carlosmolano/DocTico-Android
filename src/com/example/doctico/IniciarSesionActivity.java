@@ -67,15 +67,8 @@ public class IniciarSesionActivity extends Activity {
     	}
     };
 	
-	
-    public void Ventana_Crear_Cuenta(View view)	    		// Siguiente ventana del software
-    {
-		Intent i = new Intent(this, CrearCuentaActivity.class);
-		startActivity(i);
-    }
     
-    public void Ventana_Menu_Funcionalidades(View view)	    		// Siguiente ventana del software
-    {
+    public void Ventana_Menu_Funcionalidades(View view){
 		Intent i = new Intent(this, MenuFuncionalidadesActivity.class);
 		startActivity(i);
     }

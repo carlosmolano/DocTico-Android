@@ -53,6 +53,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    }
 	  } 
 
+	  
 	@Override
 	public boolean onMarkerClick(Marker marker) {
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -64,21 +65,19 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		            public void onClick(DialogInterface dialog, int id) {
 		                // Evento del boton twittear
 		    			if(estadoConexionInternet())
-		    				twittear();
+		    				twittear("Acabo de encontrar este centro de salud utilizando DocTico! Visita doctico.herokuapp.com");
 		    			else
-		    				mostrarMensajeErrorConexionInternet();
-		            }
-		        });
-    	
+		    				mostrarMensajeErrorConexionInternet();    
+		        }});
     	AlertDialog dialog = builder.create();
 		dialog.show();
 		return false;
 	}
 	
 	
-	private void twittear()
+	private void twittear(String mensaje)
 	{
-		String tweetUrl = "https://twitter.com/intent/tweet?text=Estoy usando la App DocTico doctico.herokuapp.com";
+		String tweetUrl = "https://twitter.com/intent/tweet?text=" + mensaje;
 		Uri uri = Uri.parse(tweetUrl);
 		startActivity(new Intent(Intent.ACTION_VIEW, uri));
 	}
@@ -89,8 +88,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    int kilometros = (int) distance/1000;
 	    int metros = (int) distance - kilometros*1000;
 	    
-    	 map.addMarker(new MarkerOptions().position(centroSalud)
-   		          .title(nombreCentro)
+    	 map.addMarker(new MarkerOptions().position(centroSalud).title(nombreCentro)
    		          .snippet("Distancia: " + kilometros + " kms y " + metros + " mts")
    		          .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital)));
     }
@@ -159,14 +157,28 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 			map.setMapType(GoogleMap.MAP_TYPE_HYBRID); 
 			return true;
 		}
-		else if (id == R.id.twitter) {
-			if(estadoConexionInternet())
-				twittear();
-			else
-				mostrarMensajeErrorConexionInternet();
+		else if (id == R.id.compartir) {
+			mensajeAbout();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	private void mensajeAbout(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage("By Jorge Chavarria Rodriguez\njorge13mtb@gmail.com")
+    	       .setTitle("Recomendar DocTico en Twitter")
+    	       .setNegativeButton("OK", null) 
+		       .setPositiveButton("Twittear", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int id) {
+		    			if(estadoConexionInternet())
+		    				twittear("Estoy usando la Aplicacion DocTico para encontrar los centros de salud cercanos a mi posicion! Visita doctico.herokuapp.com");
+		    			else
+		    				mostrarMensajeErrorConexionInternet();    
+		        }});
+    	AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 	
 	
