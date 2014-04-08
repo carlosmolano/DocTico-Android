@@ -1,5 +1,9 @@
 package com.example.doctico;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -20,6 +24,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -36,20 +41,16 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_mapa_centros_de_salud_cercanos);
 	    
-	    map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();       // Obtener Mapa
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy); 
 	    
-	    if (map != null)
-	    {	
+		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();       // Obtener Mapa
+	    
+	    if (map != null){	
 	    	cambiarPropiedadesMapa();
 	    	colocarMiPoscision();
 	    	getLocacionUsuario();
-	    	
-	  	    LatLng CasaCartago = new LatLng(9.841994,-83.896799);
-		    LatLng TEC2 = new LatLng(9.850808,-83.915786 );   
-		    LatLng TEC = new LatLng(9.855924,-83.911967);    
-	    	agregarMarcador(TEC, "Hospital 1");
-	    	agregarMarcador(TEC2, "Hospital 2");
-	    	agregarMarcador(CasaCartago, "Hospital 3");
+	    	cargarCentros();
 	    }
 	  } 
 	  
@@ -69,6 +70,41 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	}
 	
 	
+	private void cargarCentros(){
+		JSONParser jParser = new JSONParser();
+        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/centros/index.json");         // get JSON data from URL
+        String nombre;
+        Double latitud;
+        Double longitud;
+        String tipo;
+        String horario;
+        String descripcion;
+        String mensaje;
+        JSONObject centro_actual;
+        
+        if(json !=null)
+        {
+        	for (int i = 0; i < json.length(); i++) {
+                try {
+                    centro_actual = json.getJSONObject(i);
+                    nombre = centro_actual.get("nombre").toString();
+                    latitud = Double.parseDouble(centro_actual.get("latitud").toString());
+                    longitud = Double.parseDouble(centro_actual.get("longitud").toString());
+                    tipo = centro_actual.get("tipo").toString();
+                    horario = centro_actual.get("horario").toString();
+                    descripcion = centro_actual.get("descripcion").toString();
+                    mensaje = "Tipo Centro: " + tipo + "\nHorario: " + horario + "\n" + descripcion; 
+                    
+                    agregarMarcador(new LatLng(longitud, latitud), nombre, mensaje);                
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+	}
+	
+	
 	private void twittear(String mensaje){
 		String tweetUrl = "https://twitter.com/intent/tweet?text=" + mensaje;
 		Uri uri = Uri.parse(tweetUrl);
@@ -76,13 +112,13 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	}
 	
 	
-    private void agregarMarcador(LatLng centroSalud, String nombreCentro){
+    private void agregarMarcador(LatLng centroSalud, String nombreCentro, String info){
 	    double distance = getDistanciaLocacionUsuarioTo(centroSalud);
 	    int kilometros = (int) distance/1000;
 	    int metros = (int) distance - kilometros*1000;
 	    
     	 map.addMarker(new MarkerOptions().position(centroSalud).title(nombreCentro)
-   		          .snippet("Distancia: " + kilometros + " kms y " + metros + " mts")
+   		          .snippet("Distancia: " + kilometros + " kms y " + metros + " mts\n" + info)
    		          .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital)));
     }
     
@@ -102,12 +138,14 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
     }
 	
 	
-	private void colocarMiPoscision(){	      
+	private void colocarMiPoscision(){	  
 		LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
 	    Criteria criteria = new Criteria();
 	    String provider = service.getBestProvider(criteria, false);
 	    Location location = service.getLastKnownLocation(provider);
+	    System.out.println("----55555555");
 	    ubicacion_usuario = new LatLng(location.getLatitude(),location.getLongitude());    
+	    System.out.println("----66666666");
    	    map.addMarker(new MarkerOptions().position(ubicacion_usuario).title("Mi Posición!")
    	    		.icon(BitmapDescriptorFactory.fromResource(R.drawable.persona)));
 	} 
