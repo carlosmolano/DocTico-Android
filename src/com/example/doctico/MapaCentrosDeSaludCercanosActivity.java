@@ -52,7 +52,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    	agregarMarcador(CasaCartago, "Hospital 3");
 	    }
 	  } 
-
+	  
 	  
 	@Override
 	public boolean onMarkerClick(Marker marker) {
