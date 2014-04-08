@@ -12,8 +12,7 @@ import android.widget.Button;
 
 public class MenuFuncionalidadesActivity extends Activity {
 	
-	private Button boton_to_centros_ccss;
-	private Button boton_to_centros_privados;
+	private Button boton_to_centros_salud;
 	private Button boton_to_control_presion;
 	private Button boton_to_control_citas;
 
@@ -22,11 +21,9 @@ public class MenuFuncionalidadesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_funcionalidades);
 		
-		boton_to_centros_ccss = (Button)findViewById(R.id.btn_to_centros_de_salud_ccss);
-		boton_to_centros_ccss.setOnClickListener(Eventos_Botones);    
-		
-		boton_to_centros_privados = (Button)findViewById(R.id.btn_to_centros_de_salud_privados);
-		boton_to_centros_privados.setOnClickListener(Eventos_Botones);    
+		boton_to_centros_salud = (Button)findViewById(R.id.btn_to_centros_de_salud);
+		boton_to_centros_salud.setOnClickListener(Eventos_Botones);    
+		    
 		
 		boton_to_control_presion = (Button)findViewById(R.id.btn_to_control_presion);
 		boton_to_control_presion.setOnClickListener(Eventos_Botones);
@@ -40,7 +37,7 @@ public class MenuFuncionalidadesActivity extends Activity {
     {
     	public void onClick(final View v)
     	{  	
-    		if(v.getId() == boton_to_centros_ccss.getId() || v.getId() == boton_to_centros_privados.getId()) 
+    		if(v.getId() == boton_to_centros_salud.getId()) 
     		{
     		    if(estadoGPS() == true)
     		    	ventanaMapaCentros(v);
@@ -57,15 +54,14 @@ public class MenuFuncionalidadesActivity extends Activity {
     };
 	
     
-    private boolean estadoGPS()
-    {
+    private boolean estadoGPS(){
 	    LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
 	    boolean estadoGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     	return estadoGPS;
     }
 
-    private void mostrarMensajeErrorGPS()
-    {
+    
+    private void mostrarMensajeErrorGPS(){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setMessage("Se requiere el uso del GPS, por favor active el GPS!")
     	       .setTitle("GPS")

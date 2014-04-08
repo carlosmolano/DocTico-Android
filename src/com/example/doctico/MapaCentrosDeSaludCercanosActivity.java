@@ -10,15 +10,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMarkerClickListener{
@@ -59,7 +63,10 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		       .setPositiveButton("Twittear", new DialogInterface.OnClickListener() {
 		            public void onClick(DialogInterface dialog, int id) {
 		                // Evento del boton twittear
-		            	twittear();
+		    			if(estadoConexionInternet())
+		    				twittear();
+		    			else
+		    				mostrarMensajeErrorConexionInternet();
 		            }
 		        });
     	
@@ -122,6 +129,14 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	}
 	
 	
+	private boolean estadoConexionInternet()
+	{
+	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null;
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.mapa_centros_de_salud_cercanos, menu);
@@ -145,9 +160,23 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 			return true;
 		}
 		else if (id == R.id.twitter) {
-			twittear(); 
+			if(estadoConexionInternet())
+				twittear();
+			else
+				mostrarMensajeErrorConexionInternet();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	private void mostrarMensajeErrorConexionInternet()
+	{
+		Context context = getApplicationContext();
+		CharSequence text = "Se requiere conexion a internet";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
 	}
 }

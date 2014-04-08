@@ -12,9 +12,8 @@
     <string name="confirmar_password">Confirmar Contraseña</string>
     <string name="saludo">DocTico, la  aplicacion que te permite encontrar los centros de salud mas cercanos a tu posición.</string>
     <string name="menu_funcionalidades">Funcionalidades de DocTico</string>
-    <string name="centros_de_salud_privados">Centros de Salud Privados</string>
     <string name="control_de_citas">Control de Citas</string>
-    <string name="centros_de_salud_ccss">Centros de Salud CCSS</string>
+    <string name="centros_de_salud">Centros de Salud Cercanos</string>
     <string name="control_arterial">Control de Presion Arterial</string>
     <string name="title_activity_mapa_centros_de_salud_cercanos">Mapa Centros De Salud Cercanos</string>
     <string name="hello_world">Hello world!</string>

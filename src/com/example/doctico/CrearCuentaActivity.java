@@ -1,6 +1,7 @@
 package com.example.doctico;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -59,7 +60,16 @@ public class CrearCuentaActivity extends Activity {
     			System.out.println(email);
     			System.out.println(contraseña);
     			System.out.println(confirmar_contraseña);
+    			
+    			irVentanaInicio(v);
     		}
     	}
     };
+    
+    
+    private void irVentanaInicio(View v)
+    {
+		Intent i = new Intent(this, IniciarSesionActivity.class);
+		startActivity(i);
+    }
 }

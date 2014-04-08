@@ -23,27 +23,19 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/btn_to_centros_de_salud_ccss"
+        android:id="@+id/btn_to_centros_de_salud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/centros_de_salud_ccss" />
-
-    <Button
-        android:id="@+id/btn_to_centros_de_salud_privados"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="@string/centros_de_salud_privados" />
+        android:layout_marginTop="30dp"
+        android:text="@string/centros_de_salud" />
 
     <Button
         android:id="@+id/btn_to_control_presion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/control_arterial" />
 
     <Button
@@ -51,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/control_de_citas" />
     
 </LinearLayout>
