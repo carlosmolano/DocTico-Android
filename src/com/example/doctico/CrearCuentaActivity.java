@@ -39,8 +39,6 @@ public class CrearCuentaActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.crear_cuenta, menu);
 		return true;
 	}
@@ -61,6 +59,7 @@ public class CrearCuentaActivity extends Activity {
     			System.out.println(contraseña);
     			System.out.println(confirmar_contraseña);
     			
+
     			irVentanaInicio(v);
     		}
     	}
@@ -70,6 +69,7 @@ public class CrearCuentaActivity extends Activity {
     private void irVentanaInicio(View v)
     {
 		Intent i = new Intent(this, IniciarSesionActivity.class);
+		this.finish();
 		startActivity(i);
     }
 }

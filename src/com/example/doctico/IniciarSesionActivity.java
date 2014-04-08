@@ -43,6 +43,7 @@ public class IniciarSesionActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.crear_cuenta) {
 		      Intent intent = new Intent(this, CrearCuentaActivity.class);
+		      this.finish();
 		      startActivity(intent);
 			  return true;
 		}
