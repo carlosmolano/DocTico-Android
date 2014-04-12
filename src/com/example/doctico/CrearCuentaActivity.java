@@ -1,8 +1,10 @@
 package com.example.doctico;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +29,9 @@ public class CrearCuentaActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_crear_cuenta);
+		
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy); 
 		
 		boton_crear_cuenta = (Button)findViewById(R.id.btn_crear_cuenta);      
 		boton_crear_cuenta.setOnClickListener(Eventos_Botones);                // Llamar a los eventos
@@ -59,13 +64,36 @@ public class CrearCuentaActivity extends Activity {
     			System.out.println(contraseña);
     			System.out.println(confirmar_contraseña);
     			
-
-    			irVentanaInicio(v);
+    			JSONParser jsonparser = new JSONParser();
+    			String respuesta = jsonparser.crear_usuario(nombre, email, contraseña, confirmar_contraseña);
+    	        
+    			System.out.println(respuesta);
+    			
+    			if(respuesta.equals("Si")){
+    				mostrarDialogo(":)", "Has creado correctamente una cuenta en DocTico. Ahora solo debes inicar sesion...");  
+    				irVentanaInicio(v);
+    			}
+    			else{
+    				entrada_contraseña.setText("");
+    				entrada_confirmar_contraseña.setText("");
+    				mostrarDialogo("Error al Crear Cuenta", "No se pudo crear la cuenta, intentelo otra vez...");   
+    			}
     		}
     	}
     };
     
     
+	private void mostrarDialogo(String titulo, String mensaje)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage(mensaje)
+    	       .setTitle(titulo)
+    	       .setNegativeButton("OK", null);
+    	AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+    
+	
     private void irVentanaInicio(View v)
     {
 		Intent i = new Intent(this, IniciarSesionActivity.class);

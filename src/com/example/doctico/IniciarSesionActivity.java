@@ -1,8 +1,10 @@
 package com.example.doctico;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,9 @@ public class IniciarSesionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_iniciar_sesion);
+		
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy); 
 		
 		boton_iniciar_sesion = (Button)findViewById(R.id.btn_inciar_sesion);      
 		boton_iniciar_sesion.setOnClickListener(Eventos_Botones);                // Llamar a los eventos
@@ -62,15 +67,35 @@ public class IniciarSesionActivity extends Activity {
     			System.out.println(email);
     			System.out.println(password);
     			
-    		 	Ventana_Menu_Funcionalidades(v);
+    			JSONParser jsonparser = new JSONParser();
+    			String respuesta = jsonparser.autenticar_usuario(email, password);
+    			System.out.println(respuesta);
+    			
+    			if(respuesta.equals("Si"))
+        		 	Ventana_Menu_Funcionalidades(v);
+    			else{
+    				mostrarDialogo("Error al Iniciar Sesion", "Los datos no son correctos, intentelo otra vez...");   
+    				entrada_contraseña.setText("");
+    			}
+
     		}
     	}
     };
+    
+    
+	private void mostrarDialogo(String titulo, String mensaje)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage(mensaje)
+    	       .setTitle(titulo)
+    	       .setNegativeButton("OK", null);
+    	AlertDialog dialog = builder.create();
+		dialog.show();
+	}
 	
     
     public void Ventana_Menu_Funcionalidades(View view){
 		Intent i = new Intent(this, MenuFuncionalidadesActivity.class);
 		startActivity(i);
     }
-
 }

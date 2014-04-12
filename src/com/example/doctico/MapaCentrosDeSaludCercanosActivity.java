@@ -64,7 +64,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	
 	@Override
 	public boolean onMarkerClick(Marker marker) {	
-        String msj_twittear = "Acabo de encontrar este centro de salud utilizando DocTico! Visita doctico.herokuapp.com";		
+        String msj_twittear = "Acabo de encontrar " + '"' + marker.getTitle() + '"' + " utilizando la aplicacion DocTico! Visita doctico.herokuapp.com";		
 		mostrarDialogoTwittear(marker.getTitle(), marker.getSnippet(), msj_twittear);
 		return false;
 	}
@@ -82,26 +82,23 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
         String mensaje;
         JSONObject centro_actual;
         
-        if(json !=null)
-        {
-        	for (int i = 0; i < json.length(); i++) {
-                try {
-                    centro_actual = json.getJSONObject(i);
-                    nombre = centro_actual.get("nombre").toString();
-                    latitud = Double.parseDouble(centro_actual.get("latitud").toString());
-                    longitud = Double.parseDouble(centro_actual.get("longitud").toString());
-                    tipo = centro_actual.get("tipo").toString();
-                    horario = centro_actual.get("horario").toString();
-                    descripcion = centro_actual.get("descripcion").toString();
-                    mensaje = "Tipo Centro: " + tipo + "\nHorario: " + horario + "\n" + descripcion; 
-                    
-                    agregarMarcador(new LatLng(longitud, latitud), nombre, mensaje);                
-                }
-                catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        for (int i = 0; i < json.length(); i++) {
+	        try {
+	            centro_actual = json.getJSONObject(i);
+	            nombre = centro_actual.get("nombre").toString();
+	            latitud = Double.parseDouble(centro_actual.get("latitud").toString());
+	            longitud = Double.parseDouble(centro_actual.get("longitud").toString());
+	            tipo = centro_actual.get("tipo").toString();
+	            horario = centro_actual.get("horario").toString();
+	            descripcion = centro_actual.get("descripcion").toString();
+	            mensaje = "Tipo Centro: " + tipo + "\nHorario: " + horario + "\n" + descripcion; 
+	            
+	            agregarMarcador(new LatLng(longitud, latitud), nombre, mensaje);                
+	        }
+	        catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 	
 	
