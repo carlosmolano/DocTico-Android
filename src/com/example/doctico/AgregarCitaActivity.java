@@ -16,6 +16,8 @@ public class AgregarCitaActivity extends Activity {
 	private EditText miIndentificadorCita;
 	private EditText miTiempo;
 	private EditText miFecha;
+	private EditText miCentro;
+	private EditText miRecordatorio;
 	private Button boton_agregar_cita;
 	
 
@@ -27,10 +29,12 @@ public class AgregarCitaActivity extends Activity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
 
+		miIndentificadorCita = (EditText) findViewById(R.id.entrada_nombre_cita);
 		miTiempo = (EditText) findViewById(R.id.texto_hora);
 		miFecha = (EditText) findViewById(R.id.texto_fecha);
-		miIndentificadorCita = (EditText) findViewById(R.id.entrada_nombre_cita);
-		
+		miCentro = (EditText) findViewById(R.id.entrada_centro_salud);
+		miRecordatorio = (EditText) findViewById(R.id.entrada_recordatorio);
+
 		boton_agregar_cita = (Button)findViewById(R.id.btn_agregar_cita);      
 		boton_agregar_cita.setOnClickListener(Eventos_Botones);   
 		
@@ -48,12 +52,17 @@ public class AgregarCitaActivity extends Activity {
     			String identificador_cita = miIndentificadorCita.getText().toString();
     			String hora = miTiempo.getText().toString();
     			String fecha = miFecha.getText().toString();
+    			String centro = miCentro.getText().toString();
+    			String recordatorio = miRecordatorio.getText().toString();
     			
+    			System.out.println(identificador_cita);
     			System.out.println(hora);
     			System.out.println(fecha);
+    			System.out.println(centro);
+    			System.out.println(recordatorio);
     			
     			JSONParser jsonparser = new JSONParser();
-    			String respuesta = jsonparser.agregar_nueva_cita(identificador_cita, hora, fecha, "", "");
+    			String respuesta = jsonparser.agregar_nueva_cita(identificador_cita, hora, fecha, centro, recordatorio);
     	        
     			System.out.println(respuesta);
     			
