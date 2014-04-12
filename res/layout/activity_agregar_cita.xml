@@ -94,11 +94,34 @@
             android:id="@+id/texto_recordatorio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="78dp"
+            android:paddingLeft="66dp"
             android:text="Recordatorio" />
 
     </LinearLayout>
 
+   
+   
+    <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+
+     <EditText
+         android:id="@+id/entrada_centro_salud"
+         android:layout_width="160dp"
+         android:layout_height="wrap_content"
+         android:ems="10"
+         android:paddingLeft="40dp" />
+
+     <EditText
+         android:id="@+id/entrada_recordatorio"
+         android:layout_width="160dp"
+         android:layout_height="wrap_content"
+         android:ems="10"
+         android:paddingLeft="40dp"/>
+
+ </LinearLayout>
+   
+   
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content" >
