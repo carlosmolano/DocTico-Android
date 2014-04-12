@@ -13,13 +13,12 @@ import android.widget.EditText;
 
 public class AgregarMuestraPresionArterialActivity extends Activity {
 	
-	EditText miTiempo;
-	EditText miFecha;
+	private EditText miTiempo;
+	private EditText miFecha;
+	private EditText miSistolica;
+	private EditText miDiastolica;
 	
-	EditText miSistolica;
-	EditText miDiastolica;
-	
-	Button boton_agregar_muestra;
+	private Button boton_agregar_muestra;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +63,7 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     			JSONParser jsonparser = new JSONParser();
     			String respuesta = jsonparser.agregar_muestra_presion(hora, fecha, sistolica, diastolica);
     	        
-    			System.out.println(respuesta);
-    			
+    			System.out.println(respuesta);		
     			
     			if(respuesta.equals("Si")){
     				mostrarDialogo(":)", "Se ha agregado correctamente tu nueva muestra de presion arterial");  

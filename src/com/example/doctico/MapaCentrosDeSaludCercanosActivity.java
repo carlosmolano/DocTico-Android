@@ -34,7 +34,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		  
 	  private GoogleMap map;
 	  private LatLng ubicacion_usuario;
-	  Location locacion_usuario;
+	  private Location locacion_usuario;
 	  
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {

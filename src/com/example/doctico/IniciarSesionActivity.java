@@ -94,7 +94,7 @@ public class IniciarSesionActivity extends Activity {
 	}
 	
     
-    public void Ventana_Menu_Funcionalidades(View view){
+    private void Ventana_Menu_Funcionalidades(View view){
 		Intent i = new Intent(this, MenuFuncionalidadesActivity.class);
 		startActivity(i);
     }
