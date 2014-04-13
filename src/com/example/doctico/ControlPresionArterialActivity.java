@@ -39,6 +39,8 @@ public class ControlPresionArterialActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.agregar_control_presion) {
 			Intent intent = new Intent(this, AgregarMuestraPresionArterialActivity.class);
+			intent.putExtra("Token", token);
+			this.finish();
 			startActivity(intent);
 			return true;
 		}

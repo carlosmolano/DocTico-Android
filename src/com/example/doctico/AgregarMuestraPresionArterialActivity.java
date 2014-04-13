@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -17,13 +18,17 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 	private EditText miFecha;
 	private EditText miSistolica;
 	private EditText miDiastolica;
-	
+	private String token;
 	private Button boton_agregar_muestra;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agregar_muestra_presion_arterial);
+		
+	    Bundle bundle = getIntent().getExtras();
+	    token = bundle.getString("Token");
+	    System.out.println(bundle.getString("Token"));
 		
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
@@ -61,13 +66,13 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     			System.out.println(diastolica);
     			
     			JSONParser jsonparser = new JSONParser();
-    			String respuesta = jsonparser.agregar_muestra_presion(hora, fecha, sistolica, diastolica);
+    			String respuesta = jsonparser.agregar_muestra_presion(token, hora, fecha, sistolica, diastolica);
     	        
     			System.out.println(respuesta);		
     			
     			if(respuesta.equals("Si")){
     				mostrarDialogo(":)", "Se ha agregado correctamente tu nueva muestra de presion arterial");  
-    				//irVentanaInicio(v);
+    				ventanaControlṔresion();
     			}
     			else
     				mostrarDialogo("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva muestra, intentelo otra vez...");   
@@ -84,5 +89,13 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     	       .setNegativeButton("OK", null);
     	AlertDialog dialog = builder.create();
 		dialog.show();
+	}
+	
+	
+	private void ventanaControlṔresion(){
+		Intent intent = new Intent(this, ControlPresionArterialActivity.class);
+		intent.putExtra("Token", token);
+		this.finish();
+		startActivity(intent);
 	}
 }

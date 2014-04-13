@@ -149,14 +149,24 @@ public class JSONParser {
 	}
 	
 	
-	public String agregar_muestra_presion(String hora, String fecha, String sistolica, String diastolica)
+	public String agregar_muestra_presion(String token, String hora, String fecha, String sistolica, String diastolica)
 	{
 		List<NameValuePair> paramentros = new ArrayList<NameValuePair>();
+		paramentros.add(new BasicNameValuePair("token", token));
 		paramentros.add(new BasicNameValuePair("hora", hora));
 		paramentros.add(new BasicNameValuePair("fecha", fecha));
 		paramentros.add(new BasicNameValuePair("sistolica", sistolica));
 		paramentros.add(new BasicNameValuePair("diastolica", diastolica));
 		
+	    String url_agregar_muestra_presion = "http://doctico.herokuapp.com/api/api_doc_tico/nueva_presion_arterial.json";
+        JSONObject jsonObj = obtenerJSON(url_agregar_muestra_presion, paramentros);
+
+        try{
+        	return jsonObj.get("respuesta").toString(); 
+        }
+        catch (JSONException e) {
+    		e.printStackTrace();
+    	}
 		return "";
 	}
 	
