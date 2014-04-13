@@ -48,7 +48,6 @@ public class IniciarSesionActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.crear_cuenta) {
 		      Intent intent = new Intent(this, CrearCuentaActivity.class);
-		      this.finish();
 		      startActivity(intent);
 			  return true;
 		}
@@ -67,19 +66,16 @@ public class IniciarSesionActivity extends Activity {
     			System.out.println(email);
     			System.out.println(password);
     			
-    			Ventana_Menu_Funcionalidades(v);
-    			/*
     			JSONParser jsonparser = new JSONParser();
     			String respuesta = jsonparser.autenticar_usuario(email, password);
     			System.out.println(respuesta);
     			
-    			if(respuesta.equals("Si"))
+    			if(!respuesta.equals(""))
         		 	Ventana_Menu_Funcionalidades(v);
     			else{
     				mostrarDialogo("Error al Iniciar Sesion", "Los datos no son correctos, intentelo otra vez...");   
     				entrada_contraseña.setText("");
     			}
-*/
     		}
     	}
     };
@@ -98,6 +94,7 @@ public class IniciarSesionActivity extends Activity {
     
     private void Ventana_Menu_Funcionalidades(View view){
 		Intent i = new Intent(this, MenuFuncionalidadesActivity.class);
+		this.finish();
 		startActivity(i);
     }
 }

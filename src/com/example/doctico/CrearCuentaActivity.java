@@ -2,7 +2,6 @@ package com.example.doctico;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -71,7 +70,7 @@ public class CrearCuentaActivity extends Activity {
     			
     			if(respuesta.equals("Si")){
     				mostrarDialogo(":)", "Has creado correctamente una cuenta en DocTico. Ahora solo debes inicar sesion...");  
-    				irVentanaInicio(v);
+    				finalizarEstaVentana();
     			}
     			else{
     				entrada_contraseña.setText("");
@@ -94,10 +93,7 @@ public class CrearCuentaActivity extends Activity {
 	}
     
 	
-    private void irVentanaInicio(View v)
-    {
-		Intent i = new Intent(this, IniciarSesionActivity.class);
+	private void finalizarEstaVentana(){
 		this.finish();
-		startActivity(i);
-    }
+	}
 }
