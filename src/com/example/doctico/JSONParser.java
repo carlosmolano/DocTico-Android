@@ -131,6 +131,24 @@ public class JSONParser {
 	}
 	
 	
+	public String cerrar_sesion(String token)
+	{
+		List<NameValuePair> paramentros = new ArrayList<NameValuePair>();
+		paramentros.add(new BasicNameValuePair("token", token));
+		
+	    String url_autenticar_usuario = "http://doctico.herokuapp.com/api/api_doc_tico/cerrar_sesion";
+        JSONObject jsonObj = obtenerJSON(url_autenticar_usuario, paramentros);
+
+        try{
+        	return jsonObj.get("respuesta").toString(); 
+        }
+        catch (JSONException e) {
+    		e.printStackTrace();
+    	}
+		return "";
+	}
+	
+	
 	public String agregar_muestra_presion(String hora, String fecha, String sistolica, String diastolica)
 	{
 		List<NameValuePair> paramentros = new ArrayList<NameValuePair>();

@@ -54,7 +54,9 @@ public class MenuFuncionalidadesActivity extends Activity {
 		if (id == R.id.cerrar_sesion) {
 		      Intent intent = new Intent(this, IniciarSesionActivity.class);
 		      
-		      // Aca deberia de cambiar el token del usuario
+  			  JSONParser jsonparser = new JSONParser();
+  			  String respuesta = jsonparser.cerrar_sesion(token);
+  			  System.out.println(respuesta);
 		      
 		      this.finish();
 		      startActivity(intent);

@@ -87,26 +87,24 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
         String mensaje;
         JSONObject centro_actual;
         
-        if(json.length() > 0)
-        {
-        
-        for (int i = 0; i < json.length(); i++) {
-	        try {
-	            centro_actual = json.getJSONObject(i);	            
-	            nombre = centro_actual.get("nombre").toString();
-	            latitud = Double.parseDouble(centro_actual.get("latitud").toString());
-	            longitud = Double.parseDouble(centro_actual.get("longitud").toString());
-	            tipo = centro_actual.get("tipo").toString();
-	            horario = centro_actual.get("horario").toString();
-	            descripcion = centro_actual.get("descripcion").toString();
-	            mensaje = "Tipo Centro: " + tipo + "\nHorario: " + horario + "\n" + descripcion; 
-	            
-	            agregarMarcador(new LatLng(longitud, latitud), nombre, mensaje);                
-	        }
-	        catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-	    }
+        if(json.length() > 0){
+	        for (int i = 0; i < json.length(); i++) {
+		        try {
+		            centro_actual = json.getJSONObject(i);	            
+		            nombre = centro_actual.get("nombre").toString();
+		            latitud = Double.parseDouble(centro_actual.get("latitud").toString());
+		            longitud = Double.parseDouble(centro_actual.get("longitud").toString());
+		            tipo = centro_actual.get("tipo").toString();
+		            horario = centro_actual.get("horario").toString();
+		            descripcion = centro_actual.get("descripcion").toString();
+		            mensaje = "Tipo Centro: " + tipo + "\nHorario: " + horario + "\n" + descripcion; 
+		            
+		            agregarMarcador(new LatLng(longitud, latitud), nombre, mensaje);                
+		        }
+		        catch (JSONException e) {
+		            e.printStackTrace();
+		        }
+		    }
         }
         else
         	System.out.println("Este mae esta mamando, debemos tirarlo afuera de la aplicacion");
