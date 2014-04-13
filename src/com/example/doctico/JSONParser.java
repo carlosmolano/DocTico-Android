@@ -102,13 +102,8 @@ public class JSONParser {
 	    String url_nuevo_usuario = "http://doctico.herokuapp.com/api/api_doc_tico/nuevo_usuario?";
         JSONObject jsonObj = obtenerJSON(url_nuevo_usuario, paramentros);
         
-        System.out.println(url_nuevo_usuario);
-        System.out.println(paramentros.toString());
-        
-
         try{
         	return jsonObj.get("respuesta").toString(); 
-
         }
         catch (JSONException e) {
     		e.printStackTrace();

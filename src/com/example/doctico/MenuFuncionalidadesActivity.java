@@ -19,6 +19,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 	private Button boton_to_centros_salud;
 	private Button boton_to_control_presion;
 	private Button boton_to_control_citas;
+	private String token;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 		setContentView(R.layout.activity_menu_funcionalidades);
 		
 	    Bundle bundle = getIntent().getExtras();
+	    token = bundle.getString("Token");
 	    System.out.println(bundle.getString("Token"));
 		
 		boton_to_centros_salud = (Button)findViewById(R.id.btn_to_centros_de_salud);
@@ -70,7 +72,7 @@ public class MenuFuncionalidadesActivity extends Activity {
     		{
     		    if(estadoGPS()){
     		    	if(estadoConexionInternet())
-    		    		siguientActivity(MapaCentrosDeSaludCercanosActivity.class);
+    		    		siguientActivity(MapaCentrosDeSaludCercanosActivity.class, token);
     		    	else
     		    		mostrarDialogo("Internet", "Se requiere el uso de Internet!");
     		    }
@@ -108,6 +110,13 @@ public class MenuFuncionalidadesActivity extends Activity {
     	       .setPositiveButton("OK", null);
     	AlertDialog dialog = builder.create();
 		dialog.show();
+    }
+    
+    
+    private void siguientActivity(Class siguienteActivity, String token){
+    	Intent i = new Intent(this, siguienteActivity);
+		i.putExtra("Token", token);
+    	startActivity(i);
     }
     
     

@@ -35,11 +35,16 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	  private GoogleMap map;
 	  private LatLng ubicacion_usuario;
 	  private Location locacion_usuario;
+      private String token;
 	  
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_mapa_centros_de_salud_cercanos);
+	    
+	    Bundle bundle = getIntent().getExtras();
+	    token = bundle.getString("Token");
+	    System.out.println(bundle.getString("Token"));
 	    
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
@@ -72,7 +77,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	
 	private void cargarCentros(){
 		JSONParser jParser = new JSONParser();
-        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/centros_salud.json");         // get JSON data from URL
+        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/centros_salud.json?token=" + token);         // get JSON data from URL
         String nombre;
         Double latitud;
         Double longitud;
@@ -81,6 +86,9 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
         String descripcion;
         String mensaje;
         JSONObject centro_actual;
+        
+        if(json.length() > 0)
+        {
         
         for (int i = 0; i < json.length(); i++) {
 	        try {
@@ -99,6 +107,9 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	            e.printStackTrace();
 	        }
 	    }
+        }
+        else
+        	System.out.println("Este mae esta mamando, debemos tirarlo afuera de la aplicacion");
 	}
 	
 	
