@@ -8,6 +8,8 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,6 +36,29 @@ public class MenuFuncionalidadesActivity extends Activity {
 	}
 	
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_funcionalidades, menu);
+	    return true;	    
+	}
+	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.cerrar_sesion) {
+		      Intent intent = new Intent(this, IniciarSesionActivity.class);
+		      
+		      // Aca deberia de cambiar el token del usuario
+		      
+		      this.finish();
+		      startActivity(intent);
+			  return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
     private OnClickListener Eventos_Botones = new OnClickListener()    // Metodo de evento de botones
     {
     	public void onClick(final View v)
@@ -55,7 +80,6 @@ public class MenuFuncionalidadesActivity extends Activity {
     		
     		else if(v.getId() == boton_to_control_citas.getId())
     			siguientActivity(ControlCitasActivity.class);
-    			
     	}
     };
 	

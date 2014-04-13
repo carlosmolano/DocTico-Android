@@ -70,6 +70,7 @@ int id btn_inciar_sesion 0x7f05001e
 int id btn_to_centros_de_salud 0x7f050020
 int id btn_to_control_citas 0x7f050022
 int id btn_to_control_presion 0x7f050021
+int id cerrar_sesion 0x7f05002d
 int id compartir 0x7f05002c
 int id crear_cuenta 0x7f050028
 int id entrada_centro_salud 0x7f05000d

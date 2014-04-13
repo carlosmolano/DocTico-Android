@@ -234,6 +234,7 @@ containing a value of this type.
         public static final int btn_to_centros_de_salud=0x7f050020;
         public static final int btn_to_control_citas=0x7f050022;
         public static final int btn_to_control_presion=0x7f050021;
+        public static final int cerrar_sesion=0x7f05002d;
         public static final int compartir=0x7f05002c;
         public static final int crear_cuenta=0x7f050028;
         public static final int entrada_centro_salud=0x7f05000d;
