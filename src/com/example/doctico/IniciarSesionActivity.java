@@ -67,6 +67,8 @@ public class IniciarSesionActivity extends Activity {
     			System.out.println(email);
     			System.out.println(password);
     			
+    			Ventana_Menu_Funcionalidades(v);
+    			/*
     			JSONParser jsonparser = new JSONParser();
     			String respuesta = jsonparser.autenticar_usuario(email, password);
     			System.out.println(respuesta);
@@ -77,7 +79,7 @@ public class IniciarSesionActivity extends Activity {
     				mostrarDialogo("Error al Iniciar Sesion", "Los datos no son correctos, intentelo otra vez...");   
     				entrada_contraseña.setText("");
     			}
-
+*/
     		}
     	}
     };

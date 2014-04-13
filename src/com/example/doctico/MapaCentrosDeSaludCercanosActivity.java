@@ -64,7 +64,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	
 	@Override
 	public boolean onMarkerClick(Marker marker) {	
-        String msj_twittear = "Acabo de encontrar " + '"' + marker.getTitle() + '"' + " utilizando la aplicacion DocTico! Visita doctico.herokuapp.com";		
+        String msj_twittear = "Acabo de encontrar el centro de salud " + '"' + marker.getTitle() + '"' + " utilizando la aplicacion DocTico! Visita doctico.herokuapp.com";		
 		mostrarDialogoTwittear(marker.getTitle(), marker.getSnippet(), msj_twittear);
 		return false;
 	}
@@ -72,7 +72,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	
 	private void cargarCentros(){
 		JSONParser jParser = new JSONParser();
-        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/centros/index.json");         // get JSON data from URL
+        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/centros_salud.json");         // get JSON data from URL
         String nombre;
         Double latitud;
         Double longitud;
@@ -84,7 +84,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
         
         for (int i = 0; i < json.length(); i++) {
 	        try {
-	            centro_actual = json.getJSONObject(i);
+	            centro_actual = json.getJSONObject(i);	            
 	            nombre = centro_actual.get("nombre").toString();
 	            latitud = Double.parseDouble(centro_actual.get("latitud").toString());
 	            longitud = Double.parseDouble(centro_actual.get("longitud").toString());

@@ -61,8 +61,7 @@ public class JSONParser {
            
         // Parse String to JSON object
         try {
-            System.out.println("44444");
-            jarray = new JSONArray( builder.toString());
+            jarray = new JSONArray(builder.toString());
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
