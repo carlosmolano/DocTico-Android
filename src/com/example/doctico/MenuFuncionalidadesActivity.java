@@ -83,7 +83,7 @@ public class MenuFuncionalidadesActivity extends Activity {
     		}
     		
     		else if(v.getId() == boton_to_control_presion.getId())
-    			siguientActivity(ControlPresionArterialActivity.class);
+    			siguientActivity(ControlPresionArterialActivity.class, token);
     		
     		else if(v.getId() == boton_to_control_citas.getId())
     			siguientActivity(ControlCitasActivity.class);
