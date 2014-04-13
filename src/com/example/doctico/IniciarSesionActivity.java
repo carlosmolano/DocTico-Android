@@ -71,7 +71,7 @@ public class IniciarSesionActivity extends Activity {
     			System.out.println(respuesta);
     			
     			if(!respuesta.equals(""))
-        		 	Ventana_Menu_Funcionalidades(v);
+        		 	Ventana_Menu_Funcionalidades(v, respuesta);
     			else{
     				mostrarDialogo("Error al Iniciar Sesion", "Los datos no son correctos, intentelo otra vez...");   
     				entrada_contraseña.setText("");
@@ -92,9 +92,10 @@ public class IniciarSesionActivity extends Activity {
 	}
 	
     
-    private void Ventana_Menu_Funcionalidades(View view){
-		Intent i = new Intent(this, MenuFuncionalidadesActivity.class);
+    private void Ventana_Menu_Funcionalidades(View view, String token){
+		Intent intent = new Intent(this, MenuFuncionalidadesActivity.class);
+		intent.putExtra("Token", token);
 		this.finish();
-		startActivity(i);
+		startActivity(intent);
     }
 }

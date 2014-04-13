@@ -25,6 +25,9 @@ public class MenuFuncionalidadesActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_funcionalidades);
 		
+	    Bundle bundle = getIntent().getExtras();
+	    System.out.println(bundle.getString("Token"));
+		
 		boton_to_centros_salud = (Button)findViewById(R.id.btn_to_centros_de_salud);
 		boton_to_centros_salud.setOnClickListener(Eventos_Botones);    
 		
