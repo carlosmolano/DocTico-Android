@@ -99,7 +99,7 @@ public class JSONParser {
 		paramentros.add(new BasicNameValuePair("password", contraseña));
 		paramentros.add(new BasicNameValuePair("password_confirmation", confirmar_contraseña));
 		
-	    String url_nuevo_usuario = "http://doctico.herokuapp.com/api/api_doc_tico/nuevo_usuario?";
+	    String url_nuevo_usuario = "http://doctico.herokuapp.com/api/api_doc_tico/nuevo_usuario";
         JSONObject jsonObj = obtenerJSON(url_nuevo_usuario, paramentros);
         
         try{

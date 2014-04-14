@@ -1,25 +1,30 @@
 package com.example.doctico;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.google.android.gms.maps.model.LatLng;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class ControlPresionArterialActivity extends Activity {
 	
+	private ListView lista_muestras_presion;
     private String token;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_control_presion_arterial);
+		
+		lista_muestras_presion = (ListView) findViewById(R.id.lista_muestras_presion);
 		
 	    Bundle bundle = getIntent().getExtras();
 	    token = bundle.getString("Token");
@@ -58,6 +63,8 @@ public class ControlPresionArterialActivity extends Activity {
 	    String diastolica;
 	    JSONObject muestra_actual;
 	    
+        ArrayList<String> lista_muestras = new ArrayList<String>();   
+
 	    if(json.length() > 0){
 	        for (int i = 0; i < json.length(); i++) {
 		        try {
@@ -66,6 +73,7 @@ public class ControlPresionArterialActivity extends Activity {
 		        	fecha = muestra_actual.get("fecha").toString();
 		        	sistolica = muestra_actual.get("sistolica").toString();
 		        	diastolica = muestra_actual.get("diastolica").toString();
+		        	lista_muestras.add("-Sistolica: " + sistolica + "  -Diastolica: " + diastolica);
 		            System.out.println(hora);
 		            System.out.println(fecha);
 		            System.out.println(sistolica);
@@ -78,5 +86,10 @@ public class ControlPresionArterialActivity extends Activity {
 	    }
 	    else
 	    	System.out.println("No tiene muestas de presion arterial....");
+	    
+	    Collections.reverse(lista_muestras);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        android.R.layout.simple_list_item_1, android.R.id.text1, lista_muestras);
+        lista_muestras_presion.setAdapter(adapter); 
 	}
 }
