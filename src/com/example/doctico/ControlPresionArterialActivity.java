@@ -64,7 +64,7 @@ public class ControlPresionArterialActivity extends Activity {
 	    JSONObject muestra_actual;
 	    
         ArrayList<String> lista_muestras = new ArrayList<String>();   
-
+        		
 	    if(json.length() > 0){
 	        for (int i = 0; i < json.length(); i++) {
 		        try {
@@ -73,7 +73,9 @@ public class ControlPresionArterialActivity extends Activity {
 		        	fecha = muestra_actual.get("fecha").toString();
 		        	sistolica = muestra_actual.get("sistolica").toString();
 		        	diastolica = muestra_actual.get("diastolica").toString();
-		        	lista_muestras.add("Sistolica: " + sistolica + "  Diastolica: " + diastolica + "\nHora: " + hora + " Fecha: " + fecha);
+		        	//lista_muestras.add("Sistolica: " + sistolica + "  Diastolica: " + diastolica + "\nHora: " + hora + " Fecha: " + fecha);
+		        	lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
+			        
 		        }
 		        catch (JSONException e) {
 		            e.printStackTrace();
@@ -83,6 +85,7 @@ public class ControlPresionArterialActivity extends Activity {
 	    else
 	    	System.out.println("No tiene muestas de presion arterial....");
 	    
+        lista_muestras.add("  Sis.        Dia.        Hora     Fecha");
 	    Collections.reverse(lista_muestras);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_1, android.R.id.text1, lista_muestras);
