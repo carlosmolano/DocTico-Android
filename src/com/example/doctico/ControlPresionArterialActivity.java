@@ -73,11 +73,7 @@ public class ControlPresionArterialActivity extends Activity {
 		        	fecha = muestra_actual.get("fecha").toString();
 		        	sistolica = muestra_actual.get("sistolica").toString();
 		        	diastolica = muestra_actual.get("diastolica").toString();
-		        	lista_muestras.add("-Sistolica: " + sistolica + "  -Diastolica: " + diastolica);
-		            System.out.println(hora);
-		            System.out.println(fecha);
-		            System.out.println(sistolica);
-		            System.out.println(diastolica);
+		        	lista_muestras.add("Sistolica: " + sistolica + "  Diastolica: " + diastolica + "\nHora: " + hora + " Fecha: " + fecha);
 		        }
 		        catch (JSONException e) {
 		            e.printStackTrace();
