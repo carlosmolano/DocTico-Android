@@ -8,7 +8,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.LineGraphView;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -21,13 +20,9 @@ public class GraficoPresionArterialActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_grafico_presion_arterial);
-		
-		ActionBar actionBar = getActionBar();
-		actionBar.hide();
-		
-	    Bundle bundle = getIntent().getExtras();
-	    token = bundle.getString("Token");
-	    System.out.println(bundle.getString("Token"));
+
+        getActionBar().hide();
+	    token = getIntent().getExtras().getString("Token");
 	    
 	    generar_grafico_muestras_presion_arterial(token);
 	}
@@ -60,13 +55,9 @@ public class GraficoPresionArterialActivity extends Activity {
 	    else
 	    	System.out.println("No tiene muestas de presion arterial....");
 
-	    
 	    grafico_presion_arterial.addSeries(new GraphViewSeries(datos_sistolicas));
 	    grafico_presion_arterial.addSeries(new GraphViewSeries(datos_diastolicas));
-		 
 	    grafico_presion_arterial.getGraphViewStyle().setNumVerticalLabels(11);
-
-		
 		
 	    try {
 	    	grafico_presion_arterial.setHorizontalLabels
@@ -80,10 +71,7 @@ public class GraficoPresionArterialActivity extends Activity {
 			e.printStackTrace();
 		}
 	    
-	    grafico_presion_arterial.getGraphViewStyle().setNumHorizontalLabels(cantidad_muestras);
-	    
 	    LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
 		layout.addView(grafico_presion_arterial);
 	}
-
 }
