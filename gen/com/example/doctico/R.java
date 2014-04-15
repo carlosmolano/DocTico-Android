@@ -224,33 +224,34 @@ containing a value of this type.
         public static final int persona=0x7f02001e;
     }
     public static final class id {
-        public static final int action_settings=0x7f050024;
-        public static final int agregar_cita=0x7f050025;
-        public static final int agregar_control_presion=0x7f050026;
+        public static final int action_settings=0x7f050025;
+        public static final int agregar_cita=0x7f050026;
+        public static final int agregar_control_presion=0x7f050027;
         public static final int btn_agregar_cita=0x7f05000f;
         public static final int btn_agregar_muestra=0x7f050015;
         public static final int btn_crear_cuenta=0x7f05001c;
-        public static final int btn_inciar_sesion=0x7f05001f;
-        public static final int btn_to_centros_de_salud=0x7f050021;
-        public static final int btn_to_control_citas=0x7f050023;
-        public static final int btn_to_control_presion=0x7f050022;
-        public static final int cerrar_sesion=0x7f05002e;
-        public static final int compartir=0x7f05002d;
-        public static final int crear_cuenta=0x7f050029;
+        public static final int btn_inciar_sesion=0x7f050020;
+        public static final int btn_to_centros_de_salud=0x7f050022;
+        public static final int btn_to_control_citas=0x7f050024;
+        public static final int btn_to_control_presion=0x7f050023;
+        public static final int cerrar_sesion=0x7f05002f;
+        public static final int compartir=0x7f05002e;
+        public static final int crear_cuenta=0x7f05002a;
         public static final int entrada_centro_salud=0x7f05000d;
         public static final int entrada_confirmar_password_crear_cuenta=0x7f05001b;
-        public static final int entrada_email=0x7f05001d;
-        public static final int entrada_email_crear_cuenta=0x7f050019;
+        public static final int entrada_email=0x7f05001e;
+        public static final int entrada_email_crear_cuenta=0x7f050018;
         public static final int entrada_nombre_cita=0x7f050007;
-        public static final int entrada_nombre_crear_cuenta=0x7f050018;
-        public static final int entrada_password=0x7f05001e;
+        public static final int entrada_nombre_crear_cuenta=0x7f050017;
+        public static final int entrada_password=0x7f05001f;
         public static final int entrada_password_crear_cuenta=0x7f05001a;
         public static final int entrada_recordatorio=0x7f05000e;
         public static final int hybrid=0x7f050004;
-        public static final int lista_muestras_presion=0x7f050017;
-        public static final int map=0x7f050020;
-        public static final int mi_estado_mensual=0x7f050028;
-        public static final int mi_estado_semanal=0x7f050027;
+        public static final int layout=0x7f05001d;
+        public static final int lista_muestras_presion=0x7f050016;
+        public static final int map=0x7f050021;
+        public static final int mi_estado_mensual=0x7f050029;
+        public static final int mi_estado_semanal=0x7f050028;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
@@ -259,7 +260,7 @@ containing a value of this type.
         public static final int textView2=0x7f050010;
         public static final int textView3=0x7f050008;
         public static final int textView4=0x7f050011;
-        public static final int textView5=0x7f050016;
+        public static final int textView5=0x7f050019;
         public static final int textView6=0x7f050012;
         public static final int textViewCita=0x7f050005;
         public static final int texto_centro_salud=0x7f05000b;
@@ -268,9 +269,9 @@ containing a value of this type.
         public static final int texto_hora=0x7f050009;
         public static final int texto_recordatorio=0x7f05000c;
         public static final int texto_sistolica=0x7f050013;
-        public static final int tipo_mapa_hibrido=0x7f05002c;
-        public static final int tipo_mapa_normal=0x7f05002a;
-        public static final int tipo_mapa_satelite=0x7f05002b;
+        public static final int tipo_mapa_hibrido=0x7f05002d;
+        public static final int tipo_mapa_normal=0x7f05002b;
+        public static final int tipo_mapa_satelite=0x7f05002c;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
@@ -281,9 +282,10 @@ containing a value of this type.
         public static final int activity_control_citas=0x7f030002;
         public static final int activity_control_presion_arterial=0x7f030003;
         public static final int activity_crear_cuenta=0x7f030004;
-        public static final int activity_iniciar_sesion=0x7f030005;
-        public static final int activity_mapa_centros_de_salud_cercanos=0x7f030006;
-        public static final int activity_menu_funcionalidades=0x7f030007;
+        public static final int activity_grafico_presion_arterial=0x7f030005;
+        public static final int activity_iniciar_sesion=0x7f030006;
+        public static final int activity_mapa_centros_de_salud_cercanos=0x7f030007;
+        public static final int activity_menu_funcionalidades=0x7f030008;
     }
     public static final class menu {
         public static final int agregar_cita=0x7f0a0000;
@@ -291,9 +293,10 @@ containing a value of this type.
         public static final int control_citas=0x7f0a0002;
         public static final int control_presion_arterial=0x7f0a0003;
         public static final int crear_cuenta=0x7f0a0004;
-        public static final int iniciar_sesion=0x7f0a0005;
-        public static final int mapa_centros_de_salud_cercanos=0x7f0a0006;
-        public static final int menu_funcionalidades=0x7f0a0007;
+        public static final int grafico_presion_arterial=0x7f0a0005;
+        public static final int iniciar_sesion=0x7f0a0006;
+        public static final int mapa_centros_de_salud_cercanos=0x7f0a0007;
+        public static final int menu_funcionalidades=0x7f0a0008;
     }
     public static final class string {
         public static final int action_settings=0x7f06001c;
@@ -416,6 +419,7 @@ containing a value of this type.
         public static final int title_activity_control_citas=0x7f06002b;
         public static final int title_activity_control_presion_arterial=0x7f06002e;
         public static final int title_activity_crear_cuenta=0x7f060031;
+        public static final int title_activity_grafico_presion_arterial=0x7f060036;
         public static final int title_activity_iniciar_sesion=0x7f06001d;
         public static final int title_activity_mapa_centros_de_salud_cercanos=0x7f060029;
         public static final int title_activity_menu_funcionalidades=0x7f060032;

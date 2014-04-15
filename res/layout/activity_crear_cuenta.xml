@@ -20,6 +20,7 @@
         android:layout_gravity="center_horizontal"
         android:padding="10dp"
         android:text="@string/crear_cuenta" 
+        android:textColor="#000099"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -81,7 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop = "20dp"
+        android:layout_marginTop = "20dp"        
+        android:textColor="#000099"
         android:text="@string/crear_cuenta" />
     
 </LinearLayout>

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="10dp"
+        android:textColor="#000099"
         android:text="@string/control_presion_arterial" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
     

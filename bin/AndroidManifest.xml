@@ -77,6 +77,10 @@
             android:name="com.example.doctico.AgregarMuestraPresionArterialActivity"
             android:label="@string/title_activity_agregar_muestra_presion_arterial" >
         </activity>
+        <activity
+            android:name="com.example.doctico.GraficoPresionArterialActivity"
+            android:label="@string/title_activity_grafico_presion_arterial" >
+        </activity>
     </application>
 
 </manifest>

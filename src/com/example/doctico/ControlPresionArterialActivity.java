@@ -49,6 +49,15 @@ public class ControlPresionArterialActivity extends Activity {
 			startActivity(intent);
 			return true;
 		}
+		
+		else if(id == R.id.mi_estado_mensual || id == R.id.mi_estado_semanal)
+		{
+			Intent intent = new Intent(this, GraficoPresionArterialActivity.class);
+			//intent.putExtra("Token", token);
+			//this.finish();
+			startActivity(intent);
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -72,9 +81,7 @@ public class ControlPresionArterialActivity extends Activity {
 		        	hora = muestra_actual.get("hora").toString();
 		        	fecha = muestra_actual.get("fecha").toString();
 		        	sistolica = muestra_actual.get("sistolica").toString();
-		        	diastolica = muestra_actual.get("diastolica").toString();
-		        	//lista_muestras.add("Sistolica: " + sistolica + "  Diastolica: " + diastolica + "\nHora: " + hora + " Fecha: " + fecha);
-		        	lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
+		        	diastolica = muestra_actual.get("diastolica").toString();lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
 			        
 		        }
 		        catch (JSONException e) {

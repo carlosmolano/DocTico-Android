@@ -12,6 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:padding="25dp"
         android:text="Agregar Nueva Cita" 
+        android:textColor="#000099"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -133,7 +134,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop = "60dp"
+        android:layout_marginTop = "60dp"        
+        android:textColor="#000099"
         android:text="Agregar Cita" />
     
 </LinearLayout>

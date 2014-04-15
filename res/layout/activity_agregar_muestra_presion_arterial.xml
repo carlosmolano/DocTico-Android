@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:padding="25dp"
+        android:padding="25dp"        
+        android:textColor="#000099"
         android:text="@string/agregar_muestra_presion_arterial" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -115,7 +116,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop = "60dp"
+        android:layout_marginTop = "60dp"        
+        android:textColor="#000099"
         android:text="Agregar Nueva Muestra" />
     
 </LinearLayout>

@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="25dp"
+        android:textColor="#000099"
         android:text="@string/iniciar_sesion" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -57,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop = "35dp"
+        android:textColor="#000099"
         android:text="@string/iniciar_sesion" />
     
 </LinearLayout>
