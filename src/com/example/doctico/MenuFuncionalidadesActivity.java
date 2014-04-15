@@ -86,7 +86,7 @@ public class MenuFuncionalidadesActivity extends Activity {
     			siguientActivity(ControlPresionArterialActivity.class, token);
     		
     		else if(v.getId() == boton_to_control_citas.getId())
-    			siguientActivity(ControlCitasActivity.class);
+    			siguientActivity(ControlCitasActivity.class, token);
     	}
     };
 	
@@ -118,12 +118,6 @@ public class MenuFuncionalidadesActivity extends Activity {
     private void siguientActivity(Class siguienteActivity, String token){
     	Intent i = new Intent(this, siguienteActivity);
 		i.putExtra("Token", token);
-    	startActivity(i);
-    }
-    
-    
-    private void siguientActivity(Class siguienteActivity){
-    	Intent i = new Intent(this, siguienteActivity);
     	startActivity(i);
     }
 }
