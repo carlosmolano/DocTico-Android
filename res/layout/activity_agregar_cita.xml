@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:padding="25dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
         android:text="Agregar Nueva Cita" 
         android:textColor="#000099"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -20,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-        android:paddingLeft="40dp"
+        android:layout_gravity="center_horizontal"
         android:text="Identificador de la Cita" />
 
     <EditText
@@ -29,7 +30,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:paddingLeft="40dp"
-        android:inputType="text" >
+        android:inputType="text" 
+        android:text="Cita..." >
 
             <requestFocus />
     </EditText>
@@ -77,64 +79,29 @@
             android:inputType="date" />
 
     </LinearLayout>
+
     
-    
-   <LinearLayout
+     <TextView
+         android:id="@+id/texto_centro_salud"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:paddingTop="30dp"
+         android:text="Centro de Salud" />
+   
+   
+<Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:paddingTop="20dp">
-
-        <TextView
-            android:id="@+id/texto_centro_salud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="40dp"
-            android:text="Centro de Salud" />
-
-        <TextView
-            android:id="@+id/texto_recordatorio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="66dp"
-            android:text="Recordatorio" />
-
-    </LinearLayout>
-
-   
-   
-    <LinearLayout
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content">
-
-     <EditText
-         android:id="@+id/entrada_centro_salud"
-         android:layout_width="160dp"
-         android:layout_height="wrap_content"
-         android:ems="10"
-         android:paddingLeft="40dp" />
-
-     <EditText
-         android:id="@+id/entrada_recordatorio"
-         android:layout_width="160dp"
-         android:layout_height="wrap_content"
-         android:ems="10"
-         android:paddingLeft="40dp"/>
-
- </LinearLayout>
-   
-   
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content" >
-
-   </LinearLayout>
+                android:layout_gravity="center_horizontal" />
 
     <Button
         android:id="@+id/btn_agregar_cita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop = "60dp"        
+        android:layout_marginTop = "30dp"        
         android:textColor="#000099"
         android:text="Agregar Cita" />
     

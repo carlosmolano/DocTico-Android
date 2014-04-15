@@ -171,15 +171,13 @@ public class JSONParser {
 	}
 	
 	
-	public String agregar_nueva_cita(String identificador, String hora, String fecha, String centro, String recordatorio)
+	public String agregar_nueva_cita(String identificador, String hora, String fecha, String centro)
 	{
 		List<NameValuePair> paramentros = new ArrayList<NameValuePair>();
 		paramentros.add(new BasicNameValuePair("identificador", identificador));
 		paramentros.add(new BasicNameValuePair("hora", hora));
 		paramentros.add(new BasicNameValuePair("fecha", fecha));
 		paramentros.add(new BasicNameValuePair("centro", centro));
-		paramentros.add(new BasicNameValuePair("recordatorio", recordatorio));
-		
 		return "";
 	}
     
