@@ -42,9 +42,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_mapa_centros_de_salud_cercanos);
 	    
-	    Bundle bundle = getIntent().getExtras();
-	    token = bundle.getString("Token");
-	    System.out.println(bundle.getString("Token"));
+	    token = getIntent().getExtras().getString("Token");
 	    
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
@@ -69,8 +67,10 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	
 	@Override
 	public boolean onMarkerClick(Marker marker) {	
-        String msj_twittear = "Acabo de encontrar el centro de salud " + '"' + marker.getTitle() + '"' + " utilizando la aplicacion DocTico! Visita doctico.herokuapp.com";		
-		mostrarDialogoTwittear(marker.getTitle(), marker.getSnippet(), msj_twittear);
+		if(!marker.getTitle().equalsIgnoreCase("Mi Posición!")){
+			String msj_twittear = "Acabo de encontrar el centro de salud " + '"' + marker.getTitle() + '"' + " utilizando la aplicacion DocTico! Visita doctico.herokuapp.com";		
+			mostrarDialogoTwittear(marker.getTitle(), marker.getSnippet(), msj_twittear);
+		}
 		return false;
 	}
 	
