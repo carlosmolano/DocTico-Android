@@ -54,7 +54,7 @@ public class ControlPresionArterialActivity extends Activity {
 			return true;
 		}
 		
-		else if(id == R.id.mi_estado_mensual || id == R.id.mi_estado_semanal)
+		else if(id == R.id.graficar_muestras)
 		{
 			if(cantidad_muestras>1){
 				Intent intent = new Intent(this, GraficoPresionArterialActivity.class);
