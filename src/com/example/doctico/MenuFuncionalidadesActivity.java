@@ -20,6 +20,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 	private Button boton_to_control_presion;
 	private Button boton_to_control_citas;
 	private String token;
+	private Estado estado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 		setContentView(R.layout.activity_menu_funcionalidades);
 
 	    token = getIntent().getExtras().getString("Token");
+	    estado = new Estado();
 		
 		boton_to_centros_salud = (Button)findViewById(R.id.btn_to_centros_de_salud);
 		boton_to_centros_salud.setOnClickListener(Eventos_Botones);    
@@ -69,8 +71,9 @@ public class MenuFuncionalidadesActivity extends Activity {
     	{  	
     		if(v.getId() == boton_to_centros_salud.getId()) 
     		{
-    		    if(estadoGPS()){
-    		    	if(estadoConexionInternet())
+    		    if(estado.GpsDisponible((LocationManager) getSystemService(Context.LOCATION_SERVICE)))
+    		    {	
+    		    	if(estado.ConexionInternetDisponible((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)))
     		    		siguientActivity(MapaCentrosDeSaludCercanosActivity.class, token);
     		    	else
     		    		mostrarDialogo("Internet", "Se requiere el uso de Internet!");
@@ -86,21 +89,7 @@ public class MenuFuncionalidadesActivity extends Activity {
     			siguientActivity(ControlCitasActivity.class, token);
     	}
     };
-	
     
-    private boolean estadoGPS(){
-	    LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
-	    boolean estadoGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    	return estadoGPS;
-    }
-    
-    
-	private boolean estadoConexionInternet(){
-	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-	    return activeNetworkInfo != null;
-	}
-	    
     
     private void mostrarDialogo(String titulo, String contenido){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
