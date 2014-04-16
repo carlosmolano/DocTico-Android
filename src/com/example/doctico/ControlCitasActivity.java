@@ -79,7 +79,9 @@ public class ControlCitasActivity extends Activity {
 		        	hora = cita_actual.get("hora").toString();
 		        	fecha = cita_actual.get("fecha").toString();
 		        	centro = cita_actual.get("centro").toString();
-		        	lista_muestras.add(identificador + "         " + hora + "          " + fecha + "     " + centro);
+		        	lista_muestras.add(identificador 
+		        			           + "\n  A las " +hora + " del dia " + fecha 
+		        			           + "\n  En " + centro);
 		        }
 		        catch (JSONException e) {
 		            e.printStackTrace();
@@ -89,7 +91,6 @@ public class ControlCitasActivity extends Activity {
 	    else
 	    	mostrarDialogo("Hora de Iniciar :)", "Utilizar la opcion 'AGRERAR CITA' para iniciar tu control de citas");
 	    
-        lista_muestras.add("Identificador - Hora - Fecha - Centro");
 	    Collections.reverse(lista_muestras);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_1, android.R.id.text1, lista_muestras);
