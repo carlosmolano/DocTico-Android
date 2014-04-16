@@ -1,8 +1,9 @@
 package com.example.doctico;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -15,10 +16,10 @@ import android.view.View.OnClickListener;
 public class IniciarSesionActivity extends Activity {
 	
 	private Button boton_iniciar_sesion;        
-	private String email;				       // Para guardar el email digitado por el usuario
-	private String password;				   // Para guardar el password digitado por el usuario
-	private EditText entrada_email;           // Entrada del username
-	private EditText entrada_contraseña;      // Entrada del password
+	private EditText email;           // Entrada del username
+	private EditText contraseña;      // Entrada del password
+	private Dialogo dialogo;
+	private Estado estado;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,14 @@ public class IniciarSesionActivity extends Activity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
 		
+		dialogo = new Dialogo();
+		estado = new Estado();
+		
 		boton_iniciar_sesion = (Button)findViewById(R.id.btn_inciar_sesion);      
 		boton_iniciar_sesion.setOnClickListener(Eventos_Botones);                // Llamar a los eventos
 		
-		entrada_email = (EditText)findViewById(R.id.entrada_email);               // Obtener el valor del imput del correo
-		entrada_contraseña = (EditText)findViewById(R.id.entrada_password);       // Obtener el valor del input de contrase�a
+		email = (EditText)findViewById(R.id.entrada_email);               // Obtener el valor del imput del correo
+		contraseña = (EditText)findViewById(R.id.entrada_password);       // Obtener el valor del input de contrase�a
 	}	
 	
 	
@@ -46,10 +50,14 @@ public class IniciarSesionActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.crear_cuenta) {
-		      Intent intent = new Intent(this, CrearCuentaActivity.class);
-		      startActivity(intent);
-			  return true;
+		if (id == R.id.crear_cuenta){
+			if(estado.ConexionInternetDisponible((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE))){	
+				Intent intent = new Intent(this, CrearCuentaActivity.class);
+				startActivity(intent);
+				return true;
+			}
+			else
+				errorConexionInternet();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -61,31 +69,34 @@ public class IniciarSesionActivity extends Activity {
     	{
     		if(v.getId() == boton_iniciar_sesion.getId())            // Evento de Ingresar a la aplicaci�n
     		{
-    			email = entrada_email.getText().toString();
-    			password = entrada_contraseña.getText().toString();
-    			
-    			JSONParser jsonparser = new JSONParser();
-    			String respuesta = jsonparser.autenticar_usuario(email, password);
-    			
-    			if(!respuesta.equals(""))
-        		 	Ventana_Menu_Funcionalidades(v, respuesta);
-    			else{
-    				mostrarDialogo("Error al Iniciar Sesion", "Los datos no son correctos, intentelo otra vez...");   
-    				entrada_contraseña.setText("");
+    			if(estado.ConexionInternetDisponible((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)))
+    			{
+	    			JSONParser jsonparser = new JSONParser();
+	    			String respuesta = jsonparser.autenticar_usuario(email.getText().toString(), contraseña.getText().toString());
+	    			
+	    			if(!respuesta.equals(""))
+	        		 	Ventana_Menu_Funcionalidades(v, respuesta);
+	    			else
+	    				errorIniciarSesion();
     			}
+    			else
+    				errorConexionInternet();
     		}
     	}
     };
     
     
-	private void mostrarDialogo(String titulo, String mensaje){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
-    	AlertDialog dialog = builder.create();
-		dialog.show();
+	private void errorIniciarSesion(){
+		dialogo.mostrar("Error al Iniciar Sesion", "Los datos no son correctos, intentelo otra vez...", this);
+	    contraseña.setText("");
 	}
 	
+	
+	private void errorConexionInternet(){
+		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
+	}	
     
+	
     private void Ventana_Menu_Funcionalidades(View view, String token){
 		Intent intent = new Intent(this, MenuFuncionalidadesActivity.class);
 		intent.putExtra("Token", token);

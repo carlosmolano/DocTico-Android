@@ -21,7 +21,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -36,6 +35,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	  private LatLng ubicacion_usuario;
 	  private Location locacion_usuario;
       private String token;
+      private Estado estado;
 	  
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    setContentView(R.layout.activity_mapa_centros_de_salud_cercanos);
 	    
 	    token = getIntent().getExtras().getString("Token");
+	    estado = new Estado();
 	    
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
@@ -162,13 +163,6 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	}
 	
 	
-	private boolean estadoConexionInternet(){
-	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-	    return activeNetworkInfo != null;
-	}
-	
-	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		
@@ -206,7 +200,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
     	       .setNegativeButton("OK", null) 
 		       .setPositiveButton("Twittear", new DialogInterface.OnClickListener() {
 		            public void onClick(DialogInterface dialog, int id) {
-		    			if(estadoConexionInternet())
+		    			if(estado.ConexionInternetDisponible((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)))
 		    				twittear(mensaje_twitter);
 		    			else
 		    				mostrarMensajeErrorConexionInternet();    
