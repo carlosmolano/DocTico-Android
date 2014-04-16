@@ -1,12 +1,10 @@
 package com.example.doctico;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +19,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 	private Button boton_to_control_citas;
 	private String token;
 	private Estado estado;
+	private Dialogo dialogo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +28,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 
 	    token = getIntent().getExtras().getString("Token");
 	    estado = new Estado();
+	    dialogo = new Dialogo();
 		
 		boton_to_centros_salud = (Button)findViewById(R.id.btn_to_centros_de_salud);
 		boton_to_centros_salud.setOnClickListener(Eventos_Botones);    
@@ -69,34 +69,36 @@ public class MenuFuncionalidadesActivity extends Activity {
     {
     	public void onClick(final View v)
     	{  	
-    		if(v.getId() == boton_to_centros_salud.getId()) 
+    		if(estado.ConexionInternetDisponible((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)))
     		{
-    		    if(estado.GpsDisponible((LocationManager) getSystemService(Context.LOCATION_SERVICE)))
-    		    {	
-    		    	if(estado.ConexionInternetDisponible((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)))
-    		    		siguientActivity(MapaCentrosDeSaludCercanosActivity.class, token);
-    		    	else
-    		    		mostrarDialogo("Internet", "Se requiere el uso de Internet!");
-    		    }
-    		    else 
-    		    	mostrarDialogo("GPS", "Se requiere el uso del GPS, por favor active el GPS!");
+	    		if(v.getId() == boton_to_centros_salud.getId()) 
+	    		{
+	    		    if(estado.GpsDisponible((LocationManager) getSystemService(Context.LOCATION_SERVICE)))
+	    		    	siguientActivity(MapaCentrosDeSaludCercanosActivity.class, token);	
+	    		    else 
+	    		    	errorGPS();
+	    		}
+	    		
+	    		else if(v.getId() == boton_to_control_presion.getId())
+	    			siguientActivity(ControlPresionArterialActivity.class, token);
+	    		
+	    		else if(v.getId() == boton_to_control_citas.getId())
+	    			siguientActivity(ControlCitasActivity.class, token);
     		}
-    		
-    		else if(v.getId() == boton_to_control_presion.getId())
-    			siguientActivity(ControlPresionArterialActivity.class, token);
-    		
-    		else if(v.getId() == boton_to_control_citas.getId())
-    			siguientActivity(ControlCitasActivity.class, token);
+    		else
+    			errorConexionInternet();
     	}
     };
     
     
-    private void mostrarDialogo(String titulo, String contenido){
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle(titulo).setMessage(contenido).setPositiveButton("OK", null);
-    	AlertDialog dialog = builder.create();
-		dialog.show();
-    }
+	private void errorGPS(){
+		dialogo.mostrar("GPS", "Se requiere el uso del GPS, por favor active el GPS!", this);
+	}
+	
+	
+	private void errorConexionInternet(){
+		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
+	}	
     
     
     private void siguientActivity(Class siguienteActivity, String token){
