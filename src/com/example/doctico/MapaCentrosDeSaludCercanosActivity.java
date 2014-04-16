@@ -149,9 +149,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    Criteria criteria = new Criteria();
 	    String provider = service.getBestProvider(criteria, false);
 	    Location location = service.getLastKnownLocation(provider);
-	    System.out.println("----55555555");
 	    ubicacion_usuario = new LatLng(location.getLatitude(),location.getLongitude());    
-	    System.out.println("----66666666");
    	    map.addMarker(new MarkerOptions().position(ubicacion_usuario).title("Mi Posición!")
    	    		.icon(BitmapDescriptorFactory.fromResource(R.drawable.persona)));
 	} 
