@@ -16,7 +16,7 @@ import android.view.View.OnClickListener;
 public class IniciarSesionActivity extends Activity {
 	
 	private Button boton_iniciar_sesion;        
-	private EditText email;           // Entrada del username
+	private EditText email;           // Entrada del email
 	private EditText contraseña;      // Entrada del password
 	private Dialogo dialogo;
 	private Estado estado;
@@ -72,10 +72,10 @@ public class IniciarSesionActivity extends Activity {
     			if(estado.ConexionInternetDisponible((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)))
     			{
 	    			JSONParser jsonparser = new JSONParser();
-	    			String respuesta = jsonparser.autenticar_usuario(email.getText().toString(), contraseña.getText().toString());
+	    			String token = jsonparser.autenticar_usuario(email.getText().toString(), contraseña.getText().toString());
 	    			
-	    			if(!respuesta.equals(""))
-	        		 	Ventana_Menu_Funcionalidades(v, respuesta);
+	    			if(!token.equals(""))
+	        		 	Ventana_Menu_Funcionalidades(token);
 	    			else
 	    				errorIniciarSesion();
     			}
@@ -97,7 +97,7 @@ public class IniciarSesionActivity extends Activity {
 	}	
     
 	
-    private void Ventana_Menu_Funcionalidades(View view, String token){
+    private void Ventana_Menu_Funcionalidades(String token){
 		Intent intent = new Intent(this, MenuFuncionalidadesActivity.class);
 		intent.putExtra("Token", token);
 		this.finish();
