@@ -108,8 +108,7 @@ public class ControlPresionArterialActivity extends Activity {
 	}
 	
 	
-	private void mostrarDialogo(String titulo, String mensaje)
-	{
+	private void mostrarDialogo(String titulo, String mensaje){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
     	AlertDialog dialog = builder.create();

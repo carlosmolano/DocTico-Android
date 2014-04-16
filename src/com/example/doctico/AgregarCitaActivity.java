@@ -6,9 +6,6 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -111,12 +108,9 @@ public class AgregarCitaActivity extends Activity {
 	}
     
     
-	private void mostrarDialogo(String titulo, String mensaje)
-	{
+	private void mostrarDialogo(String titulo, String mensaje){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(mensaje)
-    	       .setTitle(titulo)
-    	       .setNegativeButton("OK", null);
+    	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
     	AlertDialog dialog = builder.create();
 		dialog.show();
 	}

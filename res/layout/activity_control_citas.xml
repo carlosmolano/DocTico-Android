@@ -14,5 +14,12 @@
         android:textColor="#000099"
         android:text="@string/control_citas"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    
+     <ListView
+          android:id="@+id/lista_citas"
+          android:layout_height="wrap_content"
+          android:layout_width="match_parent">
+     </ListView>
 
 </LinearLayout>
