@@ -26,13 +26,10 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agregar_muestra_presion_arterial);
 		
-	    Bundle bundle = getIntent().getExtras();
-	    token = bundle.getString("Token");
-	    System.out.println(bundle.getString("Token"));
-		
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
 		
+		token = getIntent().getExtras().getString("Token");
 		miTiempo = (EditText) findViewById(R.id.texto_hora);
 		miFecha = (EditText) findViewById(R.id.texto_fecha);
 		miSistolica = (EditText) findViewById(R.id.texto_sistolica);
@@ -56,19 +53,9 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     	{
     		if(v.getId() == boton_agregar_muestra.getId())            // Evento de Ingresar a la aplicaci�n
     		{
-    			String hora = miTiempo.getText().toString();
-    			String fecha = miFecha.getText().toString();
-    			String sistolica = miSistolica.getText().toString();
-    			String diastolica = miDiastolica.getText().toString();
-    			System.out.println(hora);
-    			System.out.println(fecha);
-    			System.out.println(sistolica);
-    			System.out.println(diastolica);
-    			
     			JSONParser jsonparser = new JSONParser();
-    			String respuesta = jsonparser.agregar_muestra_presion(token, hora, fecha, sistolica, diastolica);
-    	        
-    			System.out.println(respuesta);		
+    			String respuesta = jsonparser.agregar_muestra_presion(token, miTiempo.getText().toString(), 
+    					           miFecha.getText().toString(), miSistolica.getText().toString(), miDiastolica.getText().toString());		
     			
     			if(respuesta.equals("Si")){
     				mostrarDialogo(":)", "Se ha agregado correctamente tu nueva muestra de presion arterial");  
@@ -81,12 +68,9 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     };
     
     
-	private void mostrarDialogo(String titulo, String mensaje)
-	{
+	private void mostrarDialogo(String titulo, String mensaje){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(mensaje)
-    	       .setTitle(titulo)
-    	       .setNegativeButton("OK", null);
+    	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
     	AlertDialog dialog = builder.create();
 		dialog.show();
 	}

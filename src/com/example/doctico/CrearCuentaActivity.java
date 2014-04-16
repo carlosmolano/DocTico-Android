@@ -58,15 +58,9 @@ public class CrearCuentaActivity extends Activity {
     			email = entrada_email.getText().toString();
     			contraseña = entrada_contraseña.getText().toString();
     			confirmar_contraseña = entrada_confirmar_contraseña.getText().toString();
-    			System.out.println(nombre);
-    			System.out.println(email);
-    			System.out.println(contraseña);
-    			System.out.println(confirmar_contraseña);
     			
     			JSONParser jsonparser = new JSONParser();
     			String respuesta = jsonparser.crear_usuario(nombre, email, contraseña, confirmar_contraseña);
-    	        
-    			System.out.println(respuesta);
     			
     			if(respuesta.equals("Si")){
     				mostrarDialogo(":)", "Has creado correctamente una cuenta en DocTico. Ahora solo debes inicar sesion...");  
@@ -82,8 +76,7 @@ public class CrearCuentaActivity extends Activity {
     };
     
     
-	private void mostrarDialogo(String titulo, String mensaje)
-	{
+	private void mostrarDialogo(String titulo, String mensaje){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
     	AlertDialog dialog = builder.create();

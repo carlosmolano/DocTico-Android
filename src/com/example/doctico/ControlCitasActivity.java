@@ -28,11 +28,8 @@ public class ControlCitasActivity extends Activity {
 		setContentView(R.layout.activity_control_citas);
 		
 		lista_citas = (ListView) findViewById(R.id.lista_citas);
-		
-	    Bundle bundle = getIntent().getExtras();
-	    token = bundle.getString("Token");
-	    System.out.println(bundle.getString("Token"));
-	    
+
+	    token = getIntent().getExtras().getString("Token");
 	    obtener_citas(token);
 	}
 
@@ -79,9 +76,8 @@ public class ControlCitasActivity extends Activity {
 		        	hora = cita_actual.get("hora").toString();
 		        	fecha = cita_actual.get("fecha").toString();
 		        	centro = cita_actual.get("centro").toString();
-		        	lista_muestras.add(identificador 
-		        			           + "\n  A las " +hora + " del dia " + fecha 
-		        			           + "\n  En " + centro);
+		        	lista_muestras.add(identificador  + "\n  A las " +hora + " del dia " + fecha 
+		        			                          + "\n  En " + centro);
 		        }
 		        catch (JSONException e) {
 		            e.printStackTrace();

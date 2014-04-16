@@ -25,10 +25,8 @@ public class MenuFuncionalidadesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_funcionalidades);
-		
-	    Bundle bundle = getIntent().getExtras();
-	    token = bundle.getString("Token");
-	    System.out.println(bundle.getString("Token"));
+
+	    token = getIntent().getExtras().getString("Token");
 		
 		boton_to_centros_salud = (Button)findViewById(R.id.btn_to_centros_de_salud);
 		boton_to_centros_salud.setOnClickListener(Eventos_Botones);    
@@ -55,8 +53,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 		      Intent intent = new Intent(this, IniciarSesionActivity.class);
 		      
   			  JSONParser jsonparser = new JSONParser();
-  			  String respuesta = jsonparser.cerrar_sesion(token);
-  			  System.out.println(respuesta);
+  			  jsonparser.cerrar_sesion(token);
 		      
 		      this.finish();
 		      startActivity(intent);
@@ -107,9 +104,7 @@ public class MenuFuncionalidadesActivity extends Activity {
     
     private void mostrarDialogo(String titulo, String contenido){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle(titulo)
-    		   .setMessage(contenido)
-    	       .setPositiveButton("OK", null);
+    	builder.setTitle(titulo).setMessage(contenido).setPositiveButton("OK", null);
     	AlertDialog dialog = builder.create();
 		dialog.show();
     }

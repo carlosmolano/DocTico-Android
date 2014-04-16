@@ -33,13 +33,10 @@ public class AgregarCitaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_agregar_cita);
 		
-	    Bundle bundle = getIntent().getExtras();
-	    token = bundle.getString("Token");
-	    System.out.println(bundle.getString("Token"));
-		
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
-
+		
+	    token = getIntent().getExtras().getString("Token");
 		miIndentificadorCita = (EditText) findViewById(R.id.entrada_nombre_cita);
 		miTiempo = (EditText) findViewById(R.id.texto_hora);
 		miFecha = (EditText) findViewById(R.id.texto_fecha);
@@ -64,11 +61,6 @@ public class AgregarCitaActivity extends Activity {
     			String hora = miTiempo.getText().toString();
     			String fecha = miFecha.getText().toString();
     			String centro = miCentro.getSelectedItem().toString();
-    			
-    			System.out.println(identificador_cita);
-    			System.out.println(hora);
-    			System.out.println(fecha);
-    			System.out.println(centro);
     			
     			JSONParser jsonparser = new JSONParser();
     			String respuesta = jsonparser.agregar_nueva_cita(token, identificador_cita, hora, fecha, centro);

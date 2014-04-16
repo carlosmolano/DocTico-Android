@@ -27,11 +27,8 @@ public class ControlPresionArterialActivity extends Activity {
 		setContentView(R.layout.activity_control_presion_arterial);
 		
 		lista_muestras_presion = (ListView) findViewById(R.id.lista_muestras_presion);
-		
-	    Bundle bundle = getIntent().getExtras();
-	    token = bundle.getString("Token");
-	    System.out.println(bundle.getString("Token"));
-	    
+
+	    token = getIntent().getExtras().getString("Token");
 	    obtener_muestras_presion_arterial(token);
 	}
 

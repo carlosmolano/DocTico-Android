@@ -123,7 +123,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    int kilometros = (int) distance/1000;
 	    int metros = (int) distance - kilometros*1000;
 	    
-    	 map.addMarker(new MarkerOptions().position(centroSalud).title(nombreCentro)
+    	map.addMarker(new MarkerOptions().position(centroSalud).title(nombreCentro)
    		          .snippet("Distancia: " + kilometros + " kms y " + metros + " mts\n" + info)
    		          .icon(BitmapDescriptorFactory.fromResource(R.drawable.hospital)));
     }

@@ -63,12 +63,9 @@ public class IniciarSesionActivity extends Activity {
     		{
     			email = entrada_email.getText().toString();
     			password = entrada_contraseña.getText().toString();
-    			System.out.println(email);
-    			System.out.println(password);
     			
     			JSONParser jsonparser = new JSONParser();
     			String respuesta = jsonparser.autenticar_usuario(email, password);
-    			System.out.println(respuesta);
     			
     			if(!respuesta.equals(""))
         		 	Ventana_Menu_Funcionalidades(v, respuesta);
@@ -81,12 +78,9 @@ public class IniciarSesionActivity extends Activity {
     };
     
     
-	private void mostrarDialogo(String titulo, String mensaje)
-	{
+	private void mostrarDialogo(String titulo, String mensaje){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(mensaje)
-    	       .setTitle(titulo)
-    	       .setNegativeButton("OK", null);
+    	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
     	AlertDialog dialog = builder.create();
 		dialog.show();
 	}

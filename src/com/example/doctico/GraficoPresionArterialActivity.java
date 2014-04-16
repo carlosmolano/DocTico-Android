@@ -40,20 +40,16 @@ public class GraficoPresionArterialActivity extends Activity {
 	    GraphViewData[] datos_sistolicas = new GraphViewData[cantidad_muestras];
 	    GraphViewData[] datos_diastolicas = new GraphViewData[cantidad_muestras];
 	    
-	    if(json.length() > 0){
-	        for (int i = 0; i < cantidad_muestras; i++) {
-		        try {
-		        	muestra_actual = json.getJSONObject(i);	      
-		        	datos_sistolicas[i] = new GraphViewData(i, Integer.parseInt(muestra_actual.get("sistolica").toString()));
-		        	datos_diastolicas[i] = new GraphViewData(i, Integer.parseInt(muestra_actual.get("diastolica").toString()));
-		        }
-		        catch (JSONException e) {
-		            e.printStackTrace();
-		        }
-		    }
+        for (int i = 0; i < cantidad_muestras; i++) {
+	        try {
+	        	muestra_actual = json.getJSONObject(i);	      
+	        	datos_sistolicas[i] = new GraphViewData(i, Integer.parseInt(muestra_actual.get("sistolica").toString()));
+	        	datos_diastolicas[i] = new GraphViewData(i, Integer.parseInt(muestra_actual.get("diastolica").toString()));
+	        }
+	        catch (JSONException e) {
+	            e.printStackTrace();
+	        }
 	    }
-	    else
-	    	System.out.println("No tiene muestas de presion arterial....");
 
 	    grafico_presion_arterial.addSeries(new GraphViewSeries(datos_sistolicas));
 	    grafico_presion_arterial.addSeries(new GraphViewSeries(datos_diastolicas));
