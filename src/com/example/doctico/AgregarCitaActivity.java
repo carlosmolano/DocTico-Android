@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -73,13 +74,13 @@ public class AgregarCitaActivity extends Activity {
     			System.out.println(centro);
     			
     			JSONParser jsonparser = new JSONParser();
-    			String respuesta = jsonparser.agregar_nueva_cita(identificador_cita, hora, fecha, centro);
+    			String respuesta = jsonparser.agregar_nueva_cita(token, identificador_cita, hora, fecha, centro);
     	        
     			System.out.println(respuesta);
     			
     			if(respuesta.equals("Si")){
     				mostrarDialogo(":)", "Se ha agregado correctamente tu nueva cita");  
-    				//irVentanaInicio(v);
+    				ventanaControlCitas();
     			}
     			else
     				mostrarDialogo("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva cita, intentelo otra vez...");   
@@ -118,5 +119,13 @@ public class AgregarCitaActivity extends Activity {
     	       .setNegativeButton("OK", null);
     	AlertDialog dialog = builder.create();
 		dialog.show();
+	}
+	
+	
+	private void ventanaControlCitas(){
+		Intent intent = new Intent(this, ControlCitasActivity.class);
+		intent.putExtra("Token", token);
+		this.finish();
+		startActivity(intent);
 	}
 }

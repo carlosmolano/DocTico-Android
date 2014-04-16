@@ -171,14 +171,24 @@ public class JSONParser {
 	}
 	
 	
-	public String agregar_nueva_cita(String identificador, String hora, String fecha, String centro)
+	public String agregar_nueva_cita(String token, String identificador, String hora, String fecha, String centro)
 	{
 		List<NameValuePair> paramentros = new ArrayList<NameValuePair>();
+		paramentros.add(new BasicNameValuePair("token", token));
 		paramentros.add(new BasicNameValuePair("identificador", identificador));
 		paramentros.add(new BasicNameValuePair("hora", hora));
 		paramentros.add(new BasicNameValuePair("fecha", fecha));
 		paramentros.add(new BasicNameValuePair("centro", centro));
+		
+	    String url_agregar_cita = "http://doctico.herokuapp.com/api/api_doc_tico/nueva_cita.json";
+        JSONObject jsonObj = obtenerJSON(url_agregar_cita, paramentros);
+
+        try{
+        	return jsonObj.get("respuesta").toString(); 
+        }
+        catch (JSONException e) {
+    		e.printStackTrace();
+    	}
 		return "";
 	}
-    
 }

@@ -33,6 +33,7 @@ public class ControlCitasActivity extends Activity {
 		if (id == R.id.agregar_cita) {
 		    Intent intent = new Intent(this, AgregarCitaActivity.class);
 		    intent.putExtra("Token", token);
+		    this.finish();
 		    startActivity(intent);
 			return true;
 		}
