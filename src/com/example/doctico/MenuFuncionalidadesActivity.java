@@ -52,11 +52,11 @@ public class MenuFuncionalidadesActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.cerrar_sesion) {
+		      if(estado.ConexionInternetDisponible((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))){
+		    	  JSONParser jsonparser = new JSONParser();
+		    	  jsonparser.cerrar_sesion(token);
+		      	}
 		      Intent intent = new Intent(this, IniciarSesionActivity.class);
-		      
-  			  JSONParser jsonparser = new JSONParser();
-  			  jsonparser.cerrar_sesion(token);
-		      
 		      this.finish();
 		      startActivity(intent);
 			  return true;
