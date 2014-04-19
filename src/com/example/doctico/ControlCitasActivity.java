@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +19,7 @@ public class ControlCitasActivity extends Activity {
 	
 	private ListView lista_citas;
 	private String token;
+	private Dialogo dialogo;
     private int cantidad_citas;
 
 	@Override
@@ -28,7 +28,7 @@ public class ControlCitasActivity extends Activity {
 		setContentView(R.layout.activity_control_citas);
 		
 		lista_citas = (ListView) findViewById(R.id.lista_citas);
-
+		dialogo = new Dialogo();
 	    token = getIntent().getExtras().getString("Token");
 	    obtener_citas(token);
 	}
@@ -85,7 +85,7 @@ public class ControlCitasActivity extends Activity {
 		    }
 	    }
 	    else
-	    	mostrarDialogo("Hora de Iniciar :)", "Utilizar la opcion 'AGRERAR CITA' para iniciar tu control de citas");
+	    	noHayCitas();
 	    
 	    Collections.reverse(lista_muestras);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -94,10 +94,7 @@ public class ControlCitasActivity extends Activity {
 	}
 	
 	
-	private void mostrarDialogo(String titulo, String mensaje){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
-    	AlertDialog dialog = builder.create();
-		dialog.show();
-	}
+	private void noHayCitas(){
+		dialogo.mostrar("Hora de Iniciar :)", "Utilizar la opcion 'AGRERAR CITA' para iniciar tu control de citas", this);
+	}	
 }

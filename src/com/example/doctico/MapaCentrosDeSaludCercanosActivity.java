@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
 public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMarkerClickListener{
@@ -36,6 +35,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	  private Location locacion_usuario;
       private String token;
       private Estado estado;
+      private Dialogo dialogo;
 	  
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    
 	    token = getIntent().getExtras().getString("Token");
 	    estado = new Estado();
+	    dialogo = new Dialogo();
 	    
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
@@ -211,8 +212,6 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	
 	
 	private void mostrarMensajeErrorConexionInternet(){
-		Context context = getApplicationContext();
-		CharSequence text = "Se requiere conexion a internet";
-		Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
 	}
 }

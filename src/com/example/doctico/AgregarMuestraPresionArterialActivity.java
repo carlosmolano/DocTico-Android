@@ -3,7 +3,6 @@ package com.example.doctico;
 import java.util.Calendar;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -19,6 +18,7 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 	private EditText miSistolica;
 	private EditText miDiastolica;
 	private String token;
+	private Dialogo dialogo;
 	private Button boton_agregar_muestra;
 
 	@Override
@@ -30,6 +30,7 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 		StrictMode.setThreadPolicy(policy); 
 		
 		token = getIntent().getExtras().getString("Token");
+		dialogo = new Dialogo();
 		miTiempo = (EditText) findViewById(R.id.texto_hora);
 		miFecha = (EditText) findViewById(R.id.texto_fecha);
 		miSistolica = (EditText) findViewById(R.id.texto_sistolica);
@@ -57,22 +58,17 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     			String respuesta = jsonparser.agregar_muestra_presion(token, miTiempo.getText().toString(), 
     					           miFecha.getText().toString(), miSistolica.getText().toString(), miDiastolica.getText().toString());		
     			
-    			if(respuesta.equals("Si")){
-    				mostrarDialogo(":)", "Se ha agregado correctamente tu nueva muestra de presion arterial");  
+    			if(respuesta.equals("Si")) 
     				ventanaControlṔresion();
-    			}
     			else
-    				mostrarDialogo("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva muestra, intentelo otra vez...");   
+    				errorAgregarMuestra();   
     		}
     	}
     };
     
     
-	private void mostrarDialogo(String titulo, String mensaje){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
-    	AlertDialog dialog = builder.create();
-		dialog.show();
+	private void errorAgregarMuestra(){
+		dialogo.mostrar("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva muestra, intentelo otra vez...", this);
 	}
 	
 	

@@ -8,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -27,6 +26,7 @@ public class AgregarCitaActivity extends Activity {
 	private Spinner miCentro;
 	private Button boton_agregar_cita;
 	private String token;
+	private Dialogo dialogo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class AgregarCitaActivity extends Activity {
 		StrictMode.setThreadPolicy(policy); 
 		
 	    token = getIntent().getExtras().getString("Token");
+	    dialogo = new Dialogo();
 		miIndentificadorCita = (EditText) findViewById(R.id.entrada_nombre_cita);
 		miTiempo = (EditText) findViewById(R.id.texto_hora);
 		miFecha = (EditText) findViewById(R.id.texto_fecha);
@@ -67,15 +68,18 @@ public class AgregarCitaActivity extends Activity {
     	        
     			System.out.println(respuesta);
     			
-    			if(respuesta.equals("Si")){
-    				mostrarDialogo(":)", "Se ha agregado correctamente tu nueva cita");  
+    			if(respuesta.equals("Si"))
     				ventanaControlCitas();
-    			}
     			else
-    				mostrarDialogo("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva cita, intentelo otra vez...");   
+    				errorAgregarCita();
     		}
     	}
     };
+    
+    
+	private void errorAgregarCita(){
+		dialogo.mostrar("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva cita, intentelo otra vez...", this);
+	}
     
     
 	private void cargarCentros(){
@@ -97,14 +101,6 @@ public class AgregarCitaActivity extends Activity {
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lista_centros);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		miCentro.setAdapter(dataAdapter);
-	}
-    
-    
-	private void mostrarDialogo(String titulo, String mensaje){
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setMessage(mensaje).setTitle(titulo).setNegativeButton("OK", null);
-    	AlertDialog dialog = builder.create();
-		dialog.show();
 	}
 	
 	
