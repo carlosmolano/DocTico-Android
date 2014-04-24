@@ -2,6 +2,9 @@ package com.example.doctico;
 
 import java.util.Calendar;
 
+import com.example.doctico.AccesoDatos.JSONParser;
+import com.example.doctico.Ayudas.Dialogo;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,5 +1,9 @@
 package com.example.doctico;
 
+import com.example.doctico.AccesoDatos.JSONParser;
+import com.example.doctico.Ayudas.Dialogo;
+import com.example.doctico.Ayudas.Estado;
+
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;

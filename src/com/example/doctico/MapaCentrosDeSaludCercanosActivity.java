@@ -4,6 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.doctico.AccesoDatos.JSONParser;
+import com.example.doctico.Ayudas.Dialogo;
+import com.example.doctico.Ayudas.Estado;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;

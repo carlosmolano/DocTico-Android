@@ -7,6 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.doctico.AccesoDatos.JSONParser;
+import com.example.doctico.Ayudas.Dialogo;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
