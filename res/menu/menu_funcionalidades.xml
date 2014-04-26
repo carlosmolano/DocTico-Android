@@ -1,51 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.doctico.MenuFuncionalidadesActivity" >
-
-    <item
-        android:id="@+id/cerrar_sesion"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="Cerrar Sesion"/>
     
 	<item android:id="@+id/menu_openothermenu"
 	      android:icon="@drawable/opciones"
-	              android:orderInCategory="100"
+	      android:orderInCategory="100"
 	      android:showAsAction="always">
 	    <menu>
 	        <group>
-	            
-	            <item
-				        android:id="@+id/m_funcion1"
-				        android:orderInCategory="100"
-				        android:showAsAction="always"
-				        android:title="Presion Arterial"/>
-	            	               
-	            <item
-				        android:id="@+id/m_funcion2"
-				        android:orderInCategory="100"
-				        android:showAsAction="always"
-				        android:title="Citas"/>
-	            
-	            
-	            
 	           	<item
-				        android:id="@+id/m_recomendar"
+				        android:id="@+id/recomendar_doctico"
 				        android:orderInCategory="100"
 				        android:showAsAction="always"
 				        android:title="Recomendar DocTico"/>
 	               
 	            <item
-	               		android:id="@+id/m_cerrar_sesion"
+	               		android:id="@+id/cerrar_sesion"
 				        android:orderInCategory="100"
 				        android:showAsAction="always"
 				        android:title="Cerrar Sesion"/>
 	        </group>
 	     </menu>
 	</item>
-	
-	
-	
-
-
 </menu>

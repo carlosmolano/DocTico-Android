@@ -191,7 +191,7 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f080001;
     }
     public static final class drawable {
-        public static final int cita=0x7f020000;
+        public static final int citas=0x7f020000;
         public static final int common_signin_btn_icon_dark=0x7f020001;
         public static final int common_signin_btn_icon_disabled_dark=0x7f020002;
         public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020003;
@@ -217,16 +217,14 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_dark=0x7f020017;
         public static final int common_signin_btn_text_pressed_light=0x7f020018;
         public static final int hospital=0x7f020019;
-        public static final int hospital2=0x7f02001a;
-        public static final int ic_launcher=0x7f02001b;
-        public static final int ic_plusone_medium_off_client=0x7f02001c;
-        public static final int ic_plusone_small_off_client=0x7f02001d;
-        public static final int ic_plusone_standard_off_client=0x7f02001e;
-        public static final int ic_plusone_tall_off_client=0x7f02001f;
-        public static final int opciones=0x7f020020;
-        public static final int persona=0x7f020021;
-        public static final int presion_arterial=0x7f020022;
-        public static final int presion_arterial2=0x7f020023;
+        public static final int ic_launcher=0x7f02001a;
+        public static final int ic_plusone_medium_off_client=0x7f02001b;
+        public static final int ic_plusone_small_off_client=0x7f02001c;
+        public static final int ic_plusone_standard_off_client=0x7f02001d;
+        public static final int ic_plusone_tall_off_client=0x7f02001e;
+        public static final int opciones=0x7f02001f;
+        public static final int persona=0x7f020020;
+        public static final int presion_arterial=0x7f020021;
     }
     public static final class id {
         public static final int action_settings=0x7f050024;
@@ -239,7 +237,7 @@ containing a value of this type.
         public static final int btn_to_centros_de_salud=0x7f050021;
         public static final int btn_to_control_citas=0x7f050023;
         public static final int btn_to_control_presion=0x7f050022;
-        public static final int cerrar_sesion=0x7f05002d;
+        public static final int cerrar_sesion=0x7f05002f;
         public static final int compartir=0x7f05002c;
         public static final int crear_cuenta=0x7f050028;
         public static final int entrada_confirmar_password_crear_cuenta=0x7f05001a;
@@ -254,14 +252,11 @@ containing a value of this type.
         public static final int layout=0x7f05001c;
         public static final int lista_citas=0x7f050014;
         public static final int lista_muestras_presion=0x7f050015;
-        public static final int m_cerrar_sesion=0x7f050032;
-        public static final int m_funcion1=0x7f05002f;
-        public static final int m_funcion2=0x7f050030;
-        public static final int m_recomendar=0x7f050031;
         public static final int map=0x7f050020;
-        public static final int menu_openothermenu=0x7f05002e;
+        public static final int menu_openothermenu=0x7f05002d;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
+        public static final int recomendar_doctico=0x7f05002e;
         public static final int satellite=0x7f050002;
         public static final int spinner=0x7f05000c;
         public static final int terrain=0x7f050003;

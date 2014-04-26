@@ -5,10 +5,13 @@ import com.example.doctico.Ayudas.Dialogo;
 import com.example.doctico.Ayudas.Estado;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,6 +68,12 @@ public class MenuFuncionalidadesActivity extends Activity {
 		      startActivity(intent);
 			  return true;
 		}
+		
+		else if (id == R.id.recomendar_doctico){
+	        String msj_twittear = "Estoy usando la Aplicacion DocTico para encontrar los centros de salud cercanos a mi posicion! Visita doctico.herokuapp.com";		
+			mostrarDialogoTwittear("Recomendar DocTico en Twitter", "By Jorge Chavarria Rodriguez\njorge13mtb@gmail.com", msj_twittear);
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -93,6 +102,32 @@ public class MenuFuncionalidadesActivity extends Activity {
     			errorConexionInternet();
     	}
     };
+    
+    
+	private void mostrarDialogoTwittear(String titulo, String mensaje, final String mensaje_twitter)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage(mensaje)
+    	       .setTitle(titulo)
+    	       .setNegativeButton("OK", null) 
+		       .setPositiveButton("Twittear", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int id) {
+		    			if(estado.ConexionInternetDisponible((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)))
+		    				twittear(mensaje_twitter);
+		    			else
+		    				errorConexionInternet();    
+		        }});
+    	AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+	
+	
+	private void twittear(String mensaje){
+		String tweetUrl = "https://twitter.com/intent/tweet?text=" + mensaje;
+		Uri uri = Uri.parse(tweetUrl);
+		startActivity(new Intent(Intent.ACTION_VIEW, uri));
+	}
+    
     
     
 	private void errorGPS(){

@@ -14,7 +14,6 @@
         android:textColor="#000099"
         android:text="@string/menu_funcionalidades" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
 
     <Button
         android:id="@+id/btn_to_centros_de_salud"
@@ -58,7 +57,7 @@
         android:layout_height="65dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:drawableTop="@drawable/hospital"
+        android:drawableTop="@drawable/citas"
  />
 
     <TextView
