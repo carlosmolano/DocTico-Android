@@ -1,6 +1,37 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.doctico.MapaCentrosDeSaludCercanosActivity" >
+    
+    <item android:id="@+id/menu_opciones"
+	      android:icon="@drawable/more"
+	      android:orderInCategory="100"
+	      android:showAsAction="always">
+	    <menu>
+	        <group>
+			    <item android:id="@+id/compartir" 
+			        android:title="Recomendar DocTico"
+			        android:showAsAction="always">
+			    </item>
+			    
+			   <item android:id="@+id/presion_arterial" 
+			        android:title="Presion Arterial"
+			        android:showAsAction="always">
+			    </item>
+			    
+			    <item android:id="@+id/citas" 
+			        android:title="Control Citas"
+			        android:showAsAction="always">
+			    </item>
+	               
+	            <item 
+	                android:orderInCategory="100"
+				    android:showAsAction="always"
+				    android:title="Cerrar Sesion"/>
+	        </group>
+	     </menu>
+	</item>
+    
+        
     <item 
         android:id="@+id/tipo_mapa_normal" 
         android:titleCondensed="Mapa Tipo Normal" 
@@ -18,10 +49,4 @@
         android:titleCondensed="Mapa Tipo Hibrido" 
         android:title="Mapa Tipo Hibrido">
     </item>
-    
-    <item android:id="@+id/compartir" 
-        android:title="Compartir"
-        android:showAsAction="always">
-    </item>
-    
 </menu>
