@@ -1,6 +1,11 @@
 package com.example.doctico;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
@@ -70,6 +75,38 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     };
     
     
+	private ArrayList<String> obtener_muestras_presion_arterial(String token)
+	{
+		JSONParser jParser = new JSONParser();
+	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/presion_arterial.json?token=" + token);         // get JSON data from URL
+	    String hora;
+	    String fecha;
+	    String sistolica;
+	    String diastolica;
+	    JSONObject muestra_actual;
+	    
+        ArrayList<String> lista_muestras = new ArrayList<String>();       		
+        int cantidad_muestras = json.length();
+        
+	    if(cantidad_muestras > 0){
+	        for (int i = 0; i < cantidad_muestras; i++) {
+		        try {
+		        	muestra_actual = json.getJSONObject(i);	            
+		        	hora = muestra_actual.get("hora").toString();
+		        	fecha = muestra_actual.get("fecha").toString();
+		        	sistolica = muestra_actual.get("sistolica").toString();
+		        	diastolica = muestra_actual.get("diastolica").toString();
+		        	lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
+		        }
+		        catch (JSONException e) {
+		            e.printStackTrace();
+		        }
+		    }
+	    }
+	    return lista_muestras;
+	}
+    
+    
 	private void errorAgregarMuestra(){
 		dialogo.mostrar("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva muestra, intentelo otra vez...", this);
 	}
@@ -78,6 +115,7 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 	private void ventanaControlṔresion(){
 		Intent intent = new Intent(this, ControlPresionArterialActivity.class);
 		intent.putExtra("Token", token);
+		intent.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
 		this.finish();
 		startActivity(intent);
 	}

@@ -1,5 +1,11 @@
 package com.example.doctico;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
 import com.example.doctico.Ayudas.Estado;
@@ -13,10 +19,12 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 public class MenuFuncionalidadesActivity extends Activity {
@@ -32,6 +40,9 @@ public class MenuFuncionalidadesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_funcionalidades);
+		
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy); 
 
 	    token = getIntent().getExtras().getString("Token");
 	    estado = new Estado();
@@ -93,8 +104,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 	    		}
 	    		
 	    		else if(v.getId() == boton_to_control_presion.getId())
-	    			siguientActivity(ControlPresionArterialActivity.class, token);
-	    		
+	    		     VentanaPresion();
 	    		else if(v.getId() == boton_to_control_citas.getId())
 	    			siguientActivity(ControlCitasActivity.class, token);
     		}
@@ -102,6 +112,47 @@ public class MenuFuncionalidadesActivity extends Activity {
     			errorConexionInternet();
     	}
     };
+    
+    
+    private void VentanaPresion(){
+    	Intent i = new Intent(this, ControlPresionArterialActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
+    	startActivity(i);
+    }
+    
+    
+	private ArrayList<String> obtener_muestras_presion_arterial(String token)
+	{
+		JSONParser jParser = new JSONParser();
+	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/presion_arterial.json?token=" + token);         // get JSON data from URL
+	    String hora;
+	    String fecha;
+	    String sistolica;
+	    String diastolica;
+	    JSONObject muestra_actual;
+	    
+        ArrayList<String> lista_muestras = new ArrayList<String>();       		
+        int cantidad_muestras = json.length();
+        
+	    if(cantidad_muestras > 0){
+	        for (int i = 0; i < cantidad_muestras; i++) {
+		        try {
+		        	muestra_actual = json.getJSONObject(i);	            
+		        	hora = muestra_actual.get("hora").toString();
+		        	fecha = muestra_actual.get("fecha").toString();
+		        	sistolica = muestra_actual.get("sistolica").toString();
+		        	diastolica = muestra_actual.get("diastolica").toString();
+		        	lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
+		        }
+		        catch (JSONException e) {
+		            e.printStackTrace();
+		        }
+		    }
+	    }
+	    return lista_muestras;
+	}
+    
     
     
 	private void mostrarDialogoTwittear(String titulo, String mensaje, final String mensaje_twitter)

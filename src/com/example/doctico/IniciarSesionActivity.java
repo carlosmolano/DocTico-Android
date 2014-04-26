@@ -74,7 +74,7 @@ public class IniciarSesionActivity extends Activity {
     		if(v.getId() == boton_iniciar_sesion.getId())            // Evento de Ingresar a la aplicaci�n
     		{
     			if(estado.ConexionInternetDisponible((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)))
-    			{
+    			{	
 	    			JSONParser jsonparser = new JSONParser();
 	    			String token = jsonparser.autenticar_usuario(email.getText().toString(), contraseña.getText().toString());
 	    			
@@ -99,7 +99,7 @@ public class IniciarSesionActivity extends Activity {
 	private void errorConexionInternet(){
 		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
 	}	
-    
+	
 	
     private void Ventana_Menu_Funcionalidades(String token){
 		Intent intent = new Intent(this, MenuFuncionalidadesActivity.class);

@@ -60,5 +60,6 @@
         android:layout_marginTop = "35dp"
         android:textColor="#000099"
         android:text="@string/iniciar_sesion" />
+
     
 </LinearLayout>
