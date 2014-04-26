@@ -7,5 +7,45 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="Cerrar Sesion"/>
+    
+	<item android:id="@+id/menu_openothermenu"
+	      android:icon="@drawable/opciones"
+	              android:orderInCategory="100"
+	      android:showAsAction="always">
+	    <menu>
+	        <group>
+	            
+	            <item
+				        android:id="@+id/m_funcion1"
+				        android:orderInCategory="100"
+				        android:showAsAction="always"
+				        android:title="Presion Arterial"/>
+	            	               
+	            <item
+				        android:id="@+id/m_funcion2"
+				        android:orderInCategory="100"
+				        android:showAsAction="always"
+				        android:title="Citas"/>
+	            
+	            
+	            
+	           	<item
+				        android:id="@+id/m_recomendar"
+				        android:orderInCategory="100"
+				        android:showAsAction="always"
+				        android:title="Recomendar DocTico"/>
+	               
+	            <item
+	               		android:id="@+id/m_cerrar_sesion"
+				        android:orderInCategory="100"
+				        android:showAsAction="always"
+				        android:title="Cerrar Sesion"/>
+	        </group>
+	     </menu>
+	</item>
+	
+	
+	
+
 
 </menu>
