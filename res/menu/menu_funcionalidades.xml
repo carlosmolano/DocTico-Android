@@ -3,7 +3,7 @@
     tools:context="com.example.doctico.MenuFuncionalidadesActivity" >
     
 	<item android:id="@+id/menu_openothermenu"
-	      android:icon="@drawable/mas"
+	      android:icon="@drawable/more"
 	      android:orderInCategory="100"
 	      android:showAsAction="always">
 	    <menu>

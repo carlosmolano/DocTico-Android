@@ -187,6 +187,19 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 			mostrarDialogoTwittear("Recomendar DocTico en Twitter", "By Jorge Chavarria Rodriguez\njorge13mtb@gmail.com", msj_twittear);
 			return true;
 		}
+		else if (id == R.id.presion_arterial){
+			siguientActivity(ControlPresionArterialActivity.class, token);
+			return true;
+		}
+		else if (id == R.id.citas){
+			siguientActivity(ControlCitasActivity.class, token);
+			return true;
+		}
+		else if (id == R.id.cerrar_sesion){
+			siguientActivity(IniciarSesionActivity.class, token);
+			this.finish();
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -213,6 +226,12 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		dialog.show();
 	}
 	
+	
+    private void siguientActivity(Class siguienteActivity, String token){
+    	Intent i = new Intent(this, siguienteActivity);
+		i.putExtra("Token", token);
+    	startActivity(i);
+    }
 	
 	private void mostrarMensajeErrorConexionInternet(){
 		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
