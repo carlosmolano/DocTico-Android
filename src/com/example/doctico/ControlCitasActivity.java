@@ -62,7 +62,7 @@ public class ControlCitasActivity extends Activity {
 			return true;
 		}
 		else if (id == R.id.presion_arterial){
-			siguientActivity(ControlPresionArterialActivity.class, token);
+			VentanaPresion();
 			return true;
 		}
 		else if (id == R.id.recomendar_doctico) {
@@ -78,6 +78,44 @@ public class ControlCitasActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	
+	private void VentanaPresion(){
+    	Intent i = new Intent(this, ControlPresionArterialActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
+    	startActivity(i);
+    }
+	
+	private ArrayList<String> obtener_muestras_presion_arterial(String token)
+	{
+		JSONParser jParser = new JSONParser();
+	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/presion_arterial.json?token=" + token);         // get JSON data from URL
+	    String hora;
+	    String fecha;
+	    String sistolica;
+	    String diastolica;
+	    JSONObject muestra_actual;
+	    
+        ArrayList<String> lista_muestras = new ArrayList<String>();       		
+        int cantidad_muestras = json.length();
+        
+	    if(cantidad_muestras > 0){
+	        for (int i = 0; i < cantidad_muestras; i++) {
+		        try {
+		        	muestra_actual = json.getJSONObject(i);	            
+		        	hora = muestra_actual.get("hora").toString();
+		        	fecha = muestra_actual.get("fecha").toString();
+		        	sistolica = muestra_actual.get("sistolica").toString();
+		        	diastolica = muestra_actual.get("diastolica").toString();
+		        	lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
+		        }
+		        catch (JSONException e) {
+		            e.printStackTrace();
+		        }
+		    }
+	    }
+	    return lista_muestras;
+	}
 	
 	private void obtener_citas(String token)
 	{
