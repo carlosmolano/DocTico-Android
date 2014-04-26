@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
 import com.example.doctico.Ayudas.Estado;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -61,6 +62,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    	colocarMiPoscision();
 	    	getLocacionUsuario();
 	    	cargarCentros();
+	    	
 	    }
 	  } 
 	  
@@ -191,6 +193,8 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    ubicacion_usuario = new LatLng(location.getLatitude(),location.getLongitude());    
    	    map.addMarker(new MarkerOptions().position(ubicacion_usuario).title("Mi Posición!")
    	    		.icon(BitmapDescriptorFactory.fromResource(R.drawable.persona)));
+   	    
+   	    map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13.0f));
 	} 
 	
 	
