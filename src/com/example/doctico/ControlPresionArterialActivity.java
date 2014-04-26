@@ -33,6 +33,10 @@ public class ControlPresionArterialActivity extends Activity {
     private Dialogo dialogo;
     ArrayList<String> lista_muestras;
 
+    ArrayList<String> diastolicas;
+    ArrayList<String> sistolicas;
+    ArrayList<String> fechas;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,10 +48,36 @@ public class ControlPresionArterialActivity extends Activity {
 		lista_muestras_presion = (ListView) findViewById(R.id.lista_muestras_presion);
 	    token = getIntent().getExtras().getString("Token");
 	    lista_muestras = getIntent().getExtras().getStringArrayList("Lista_Muestras");
-
+	    diastolicas = new ArrayList<String>();
+	    sistolicas = new ArrayList<String>();
+	    fechas = new ArrayList<String>();
+	    
 	    mostrar_muestras_presion_arterial(lista_muestras);
 	    estado = new Estado();
 	    dialogo = new Dialogo();
+	}
+	
+	
+	private void obtener_sistolicas_diastolicas(){
+		JSONParser jParser = new JSONParser();
+	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/presion_arterial.json?token=" + token);
+	    JSONObject muestra_actual;
+	         		
+        int cantidad_muestras = json.length();
+        
+	    if(cantidad_muestras > 0){
+	        for (int i = 0; i < cantidad_muestras; i++) {
+		        try {
+		        	muestra_actual = json.getJSONObject(i);	         
+		        	sistolicas.add(muestra_actual.get("sistolica").toString());
+		        	diastolicas.add(muestra_actual.get("diastolica").toString());
+		        	fechas.add(muestra_actual.get("fecha").toString());
+		        }
+		        catch (JSONException e) {
+		            e.printStackTrace();
+		        }
+		    }
+	    }
 	}
 
 	
@@ -68,7 +98,7 @@ public class ControlPresionArterialActivity extends Activity {
 		else if(id == R.id.graficar_muestras)
 		{
 			if(lista_muestras.size()>1)
-				siguientActivity(GraficoPresionArterialActivity.class, token);
+				VentanaGrafico();
 			else
 				mostrarDialogo("Upps...", "Deben de existir al menos 2 muestras para generar el grafico");
 			return true;
@@ -142,6 +172,15 @@ public class ControlPresionArterialActivity extends Activity {
 		dialog.show();
 	}
 	
+	
+    private void VentanaGrafico(){
+    	obtener_sistolicas_diastolicas();
+    	Intent i = new Intent(this, GraficoPresionArterialActivity.class);
+		i.putStringArrayListExtra("Sistolicas", sistolicas);
+		i.putStringArrayListExtra("Diastolicas", diastolicas);
+		i.putStringArrayListExtra("Fechas", fechas);
+    	startActivity(i);
+    }
 	
     private void siguientActivity(Class siguienteActivity, String token){
     	Intent i = new Intent(this, siguienteActivity);

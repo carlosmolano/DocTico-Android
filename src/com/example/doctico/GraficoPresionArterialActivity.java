@@ -1,10 +1,7 @@
 package com.example.doctico;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
 
-import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.GraphViewData;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;
@@ -16,7 +13,9 @@ import android.widget.LinearLayout;
 
 public class GraficoPresionArterialActivity extends Activity {
 	
-    private String token;
+    ArrayList<String> diastolicas;
+    ArrayList<String> sistolicas;
+    ArrayList<String> fechas;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,51 +23,37 @@ public class GraficoPresionArterialActivity extends Activity {
 		setContentView(R.layout.activity_grafico_presion_arterial);
 
         getActionBar().hide();
-	    token = getIntent().getExtras().getString("Token");
-	    
-	    generar_grafico_muestras_presion_arterial(token);
+	    sistolicas = getIntent().getExtras().getStringArrayList("Sistolicas");
+	    diastolicas = getIntent().getExtras().getStringArrayList("Diastolicas");
+	    fechas = getIntent().getExtras().getStringArrayList("Fechas");
+	    generar_grafico();
 	}
 	
-	
-	private void generar_grafico_muestras_presion_arterial(String token)
+	private void generar_grafico()
 	{
 		GraphView grafico_presion_arterial = new LineGraphView(this, "Historial Presion Arterial");
-		JSONParser jParser = new JSONParser();
-	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/presion_arterial.json?token=" + token);
-	    JSONObject muestra_actual;
-
-	    int cantidad_muestras = json.length();
+	    int cantidad_muestras = sistolicas.size();
 	    
 	    GraphViewData[] datos_sistolicas = new GraphViewData[cantidad_muestras];
 	    GraphViewData[] datos_diastolicas = new GraphViewData[cantidad_muestras];
 	    
-        for (int i = 0; i < cantidad_muestras; i++) {
-	        try {
-	        	muestra_actual = json.getJSONObject(i);	      
-	        	datos_sistolicas[i] = new GraphViewData(i, Integer.parseInt(muestra_actual.get("sistolica").toString()));
-	        	datos_diastolicas[i] = new GraphViewData(i, Integer.parseInt(muestra_actual.get("diastolica").toString()));
-	        }
-	        catch (JSONException e) {
-	            e.printStackTrace();
-	        }
+        for (int i = 0; i < cantidad_muestras; i++) {    
+	        	datos_sistolicas[i] = new GraphViewData(i, Integer.parseInt(sistolicas.get(i)));
+	        	datos_diastolicas[i] = new GraphViewData(i, Integer.parseInt(diastolicas.get(i)));
 	    }
 
 	    grafico_presion_arterial.addSeries(new GraphViewSeries(datos_sistolicas));
 	    grafico_presion_arterial.addSeries(new GraphViewSeries(datos_diastolicas));
-	    grafico_presion_arterial.getGraphViewStyle().setNumVerticalLabels(11);
-		
-	    try {
-	    	grafico_presion_arterial.setHorizontalLabels
-			                  (new String[] {
-			                		  json.getJSONObject(0).get("fecha").toString().substring(0, 4),
-			                		  json.getJSONObject((cantidad_muestras/2)/2).get("fecha").toString().substring(0, 4),
-					                  json.getJSONObject(cantidad_muestras/2).get("fecha").toString().substring(0, 4),
-					                  json.getJSONObject((cantidad_muestras/2) + (cantidad_muestras/2)/2).get("fecha").toString().substring(0, 4),
-					                  json.getJSONObject(cantidad_muestras-1).get("fecha").toString().substring(0, 4)});
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	    grafico_presion_arterial.getGraphViewStyle().setNumVerticalLabels(11);	
 	    
+    	grafico_presion_arterial.setHorizontalLabels
+        (new String[] {
+        		fechas.get(0).toString().substring(0, 4),
+        		fechas.get((cantidad_muestras/2)/2).toString().substring(0, 4),
+        		fechas.get(cantidad_muestras/2).toString().substring(0, 4),
+        		fechas.get((cantidad_muestras/2) + (cantidad_muestras/2)/2).toString().substring(0, 4),
+        		fechas.get(cantidad_muestras-1).toString().substring(0, 4)
+        });
 	    LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
 		layout.addView(grafico_presion_arterial);
 	}
