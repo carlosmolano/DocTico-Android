@@ -129,7 +129,6 @@ public class MenuFuncionalidadesActivity extends Activity {
 	}
     
     
-    
 	private void errorGPS(){
 		dialogo.mostrar("GPS", "Se requiere el uso del GPS, por favor active el GPS!", this);
 	}

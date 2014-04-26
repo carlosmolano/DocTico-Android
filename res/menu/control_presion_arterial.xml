@@ -2,15 +2,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.doctico.ControlPresionArterialActivity" >
 
-    <item
-        android:id="@+id/agregar_control_presion"
-        android:orderInCategory="100"
-        android:showAsAction="always"
-        android:title="Nueva Muestra"/>
-    
-    <item
-        android:id="@+id/graficar_muestras"
-        android:orderInCategory="100"
-        android:title="Graficar Mi Presion Arterial"/>
-
+	<item android:id="@+id/menu_opciones"
+	      android:icon="@drawable/more"
+	      android:orderInCategory="100"
+	      android:showAsAction="always">
+	    <menu>
+	        <group>
+				<item android:id="@+id/agregar_control_presion"
+			        android:orderInCategory="100"
+			        android:showAsAction="always"
+			        android:title="Nueva Muestra"/>
+			    
+			    <item android:id="@+id/graficar_muestras"
+			        android:orderInCategory="100"
+			        android:title="Graficar Mi Presion Arterial"/>
+	            
+	            
+			    <item android:id="@+id/mapa" 
+			        android:title="Mapa Centros"
+			        android:orderInCategory="100"
+			        android:showAsAction="always">
+			    </item>
+			    
+			    <item android:id="@+id/citas" 
+			        android:title="Control Citas"
+			        android:orderInCategory="100"
+			        android:showAsAction="always">
+			    </item>
+			    
+	           	<item
+			        android:id="@+id/recomendar_doctico"
+			        android:orderInCategory="100"
+			        android:showAsAction="always"
+			        android:title="Recomendar DocTico"/>
+	               
+	            <item
+               		android:id="@+id/cerrar_sesion"
+			        android:orderInCategory="100"
+			        android:showAsAction="always"
+			        android:title="Cerrar Sesion"/>
+	        </group>
+	     </menu>
+	</item>
 </menu>
