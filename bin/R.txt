@@ -60,7 +60,7 @@ int drawable ic_plusone_medium_off_client 0x7f02001b
 int drawable ic_plusone_small_off_client 0x7f02001c
 int drawable ic_plusone_standard_off_client 0x7f02001d
 int drawable ic_plusone_tall_off_client 0x7f02001e
-int drawable opciones 0x7f02001f
+int drawable more 0x7f02001f
 int drawable persona 0x7f020020
 int drawable presion_arterial 0x7f020021
 int id action_settings 0x7f050024
