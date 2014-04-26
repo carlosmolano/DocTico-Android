@@ -9,9 +9,15 @@ import org.json.JSONObject;
 
 import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
+import com.example.doctico.Ayudas.Estado;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +29,7 @@ public class ControlCitasActivity extends Activity {
 	private ListView lista_citas;
 	private String token;
 	private Dialogo dialogo;
+	private Estado estado;
     private int cantidad_citas;
 
 	@Override
@@ -32,6 +39,7 @@ public class ControlCitasActivity extends Activity {
 		
 		lista_citas = (ListView) findViewById(R.id.lista_citas);
 		dialogo = new Dialogo();
+		estado = new Estado(); 
 	    token = getIntent().getExtras().getString("Token");
 	    obtener_citas(token);
 	}
@@ -46,10 +54,25 @@ public class ControlCitasActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.agregar_cita) {
-		    Intent intent = new Intent(this, AgregarCitaActivity.class);
-		    intent.putExtra("Token", token);
-		    this.finish();
-		    startActivity(intent);
+			siguientActivity(AgregarCitaActivity.class, token);
+			return true;
+		}
+		else if (id == R.id.mapa){
+			siguientActivity(MapaCentrosDeSaludCercanosActivity.class, token);
+			return true;
+		}
+		else if (id == R.id.presion_arterial){
+			siguientActivity(ControlPresionArterialActivity.class, token);
+			return true;
+		}
+		else if (id == R.id.recomendar_doctico) {
+	        String msj_twittear = "Estoy usando la Aplicacion DocTico para encontrar los centros de salud cercanos a mi posicion! Visita doctico.herokuapp.com";		
+			mostrarDialogoTwittear("Recomendar DocTico en Twitter", "By Jorge Chavarria Rodriguez\njorge13mtb@gmail.com", msj_twittear);
+			return true;
+		}
+		else if (id == R.id.cerrar_sesion){
+			siguientActivity(IniciarSesionActivity.class, token);
+			this.finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -97,7 +120,43 @@ public class ControlCitasActivity extends Activity {
 	}
 	
 	
+	private void twittear(String mensaje){
+		String tweetUrl = "https://twitter.com/intent/tweet?text=" + mensaje;
+		Uri uri = Uri.parse(tweetUrl);
+		startActivity(new Intent(Intent.ACTION_VIEW, uri));
+	}
+	
+	private void mostrarDialogoTwittear(String titulo, String mensaje, final String mensaje_twitter)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setMessage(mensaje)
+    	       .setTitle(titulo)
+    	       .setNegativeButton("OK", null) 
+		       .setPositiveButton("Twittear", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int id) {
+		    			if(estado.ConexionInternetDisponible((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)))
+		    				twittear(mensaje_twitter);
+		    			else
+		    				mostrarMensajeErrorConexionInternet();    
+		        }});
+    	AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+	
+	
+	private void mostrarMensajeErrorConexionInternet(){
+		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
+	}
+	
+	
 	private void noHayCitas(){
 		dialogo.mostrar("Hora de Iniciar :)", "Utilizar la opcion 'AGRERAR CITA' para iniciar tu control de citas", this);
-	}	
+	}
+	
+	
+    private void siguientActivity(Class siguienteActivity, String token){
+    	Intent i = new Intent(this, siguienteActivity);
+		i.putExtra("Token", token);
+    	startActivity(i);
+    }
 }

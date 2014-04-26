@@ -23,7 +23,7 @@
 			        android:showAsAction="always">
 			    </item>
 	               
-	            <item 
+	            <item android:id="@+id/cerrar_sesion" 
 	                android:orderInCategory="100"
 				    android:showAsAction="always"
 				    android:title="Cerrar Sesion"/>

@@ -228,8 +228,8 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action_settings=0x7f050024;
-        public static final int agregar_cita=0x7f050025;
-        public static final int agregar_control_presion=0x7f050027;
+        public static final int agregar_cita=0x7f050026;
+        public static final int agregar_control_presion=0x7f05002b;
         public static final int btn_agregar_cita=0x7f05000d;
         public static final int btn_agregar_muestra=0x7f050013;
         public static final int btn_crear_cuenta=0x7f05001b;
@@ -237,10 +237,10 @@ containing a value of this type.
         public static final int btn_to_centros_de_salud=0x7f050021;
         public static final int btn_to_control_citas=0x7f050023;
         public static final int btn_to_control_presion=0x7f050022;
-        public static final int cerrar_sesion=0x7f05002c;
-        public static final int citas=0x7f05002a;
-        public static final int compartir=0x7f05002e;
-        public static final int crear_cuenta=0x7f05002d;
+        public static final int cerrar_sesion=0x7f05002a;
+        public static final int citas=0x7f05002d;
+        public static final int compartir=0x7f05002f;
+        public static final int crear_cuenta=0x7f05002e;
         public static final int entrada_confirmar_password_crear_cuenta=0x7f05001a;
         public static final int entrada_email=0x7f05001d;
         public static final int entrada_email_crear_cuenta=0x7f050017;
@@ -248,19 +248,19 @@ containing a value of this type.
         public static final int entrada_nombre_crear_cuenta=0x7f050016;
         public static final int entrada_password=0x7f05001e;
         public static final int entrada_password_crear_cuenta=0x7f050019;
-        public static final int graficar_muestras=0x7f050028;
+        public static final int graficar_muestras=0x7f05002c;
         public static final int hybrid=0x7f050004;
         public static final int layout=0x7f05001c;
         public static final int lista_citas=0x7f050014;
         public static final int lista_muestras_presion=0x7f050015;
         public static final int map=0x7f050020;
-        public static final int mapa=0x7f050029;
-        public static final int menu_opciones=0x7f050026;
+        public static final int mapa=0x7f050027;
+        public static final int menu_opciones=0x7f050025;
         public static final int menu_openothermenu=0x7f050033;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int presion_arterial=0x7f05002f;
-        public static final int recomendar_doctico=0x7f05002b;
+        public static final int presion_arterial=0x7f050028;
+        public static final int recomendar_doctico=0x7f050029;
         public static final int satellite=0x7f050002;
         public static final int spinner=0x7f05000c;
         public static final int terrain=0x7f050003;
