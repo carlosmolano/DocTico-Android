@@ -108,7 +108,7 @@ public class ControlPresionArterialActivity extends Activity {
 			return true;
 		}
 		else if (id == R.id.citas){
-			siguientActivity(ControlCitasActivity.class, token);
+			VentanaCitas();
 			return true;
 		}
 		else if (id == R.id.recomendar_doctico) {
@@ -165,6 +165,46 @@ public class ControlPresionArterialActivity extends Activity {
 	
 	private void mostrarMensajeErrorConexionInternet(){
 		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
+	}
+	
+	
+    private void VentanaCitas(){
+    	Intent i = new Intent(this, ControlCitasActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
+		this.finish();
+    	startActivity(i);
+    }
+    
+	private ArrayList<String> obtener_citas(String token)
+	{
+		JSONParser jParser = new JSONParser();
+	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/citas.json?token=" + token);         // get JSON data from URL
+	   
+	    String identificador;
+	    String hora;
+	    String fecha;
+	    String centro; 
+	    JSONObject cita_actual;
+	    
+        ArrayList<String> lista_muestras = new ArrayList<String>();       		
+        int cantidad_citas = json.length();
+        
+        for (int i = 0; i < cantidad_citas; i++) {
+	        try {
+	        	cita_actual = json.getJSONObject(i);	 
+	        	identificador = cita_actual.get("identificador").toString();
+	        	hora = cita_actual.get("hora").toString();
+	        	fecha = cita_actual.get("fecha").toString();
+	        	centro = cita_actual.get("centro").toString();
+	        	lista_muestras.add(identificador  + "\n  A las " +hora + " del dia " + fecha 
+	        			                          + "\n  En " + centro);
+	        }
+	        catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	    }
+        return lista_muestras;
 	}
 	
 	

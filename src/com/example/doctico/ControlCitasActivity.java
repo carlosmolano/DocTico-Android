@@ -31,6 +31,7 @@ public class ControlCitasActivity extends Activity {
 	private Dialogo dialogo;
 	private Estado estado;
     private int cantidad_citas;
+    ArrayList<String> lista_cita;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,9 @@ public class ControlCitasActivity extends Activity {
 		dialogo = new Dialogo();
 		estado = new Estado(); 
 	    token = getIntent().getExtras().getString("Token");
-	    obtener_citas(token);
+	    lista_cita = getIntent().getExtras().getStringArrayList("Lista_Citas");
+	   // obtener_citas(token);
+	    mostrar_citas(lista_cita);
 	}
 
 	@Override
@@ -79,12 +82,26 @@ public class ControlCitasActivity extends Activity {
 	}
 	
 	
+	private void mostrar_citas(ArrayList<String> lista_muestras)
+	{
+	    Collections.reverse(lista_muestras);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        android.R.layout.simple_list_item_1, android.R.id.text1, lista_muestras);
+        lista_citas.setAdapter(adapter); 
+        
+        if(lista_muestras.size() == 0)
+        	noHayCitas();	
+	}
+	
+	
+	
 	private void VentanaPresion(){
     	Intent i = new Intent(this, ControlPresionArterialActivity.class);
 		i.putExtra("Token", token);
 		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
     	startActivity(i);
     }
+	
 	
 	private ArrayList<String> obtener_muestras_presion_arterial(String token)
 	{
@@ -116,54 +133,6 @@ public class ControlCitasActivity extends Activity {
 	    }
 	    return lista_muestras;
 	}
-	
-	
-	private void mostrar_citas()
-	{
-		
-	}
-	
-	
-	private void obtener_citas(String token)
-	{
-		JSONParser jParser = new JSONParser();
-	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/citas.json?token=" + token);         // get JSON data from URL
-	   
-	    String identificador;
-	    String hora;
-	    String fecha;
-	    String centro;
-	    
-	    JSONObject cita_actual;
-	    
-        ArrayList<String> lista_muestras = new ArrayList<String>();       		
-        cantidad_citas = json.length();
-        
-	    if(cantidad_citas > 0){
-	        for (int i = 0; i < cantidad_citas; i++) {
-		        try {
-		        	cita_actual = json.getJSONObject(i);	 
-		        	identificador = cita_actual.get("identificador").toString();
-		        	hora = cita_actual.get("hora").toString();
-		        	fecha = cita_actual.get("fecha").toString();
-		        	centro = cita_actual.get("centro").toString();
-		        	lista_muestras.add(identificador  + "\n  A las " +hora + " del dia " + fecha 
-		        			                          + "\n  En " + centro);
-		        }
-		        catch (JSONException e) {
-		            e.printStackTrace();
-		        }
-		    }
-	    }
-	    else
-	    	noHayCitas();
-	    
-	    Collections.reverse(lista_muestras);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-        android.R.layout.simple_list_item_1, android.R.id.text1, lista_muestras);
-        lista_citas.setAdapter(adapter); 
-	}
-	
 	
 	private void twittear(String mensaje){
 		String tweetUrl = "https://twitter.com/intent/tweet?text=" + mensaje;

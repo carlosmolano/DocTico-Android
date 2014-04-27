@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
@@ -72,7 +73,7 @@ public class AgregarCitaActivity extends Activity {
     			System.out.println(respuesta);
     			
     			if(respuesta.equals("Si"))
-    				ventanaControlCitas();
+    				VentanaCitas();
     			else
     				errorAgregarCita();
     		}
@@ -80,6 +81,46 @@ public class AgregarCitaActivity extends Activity {
     };
     
     
+    private void VentanaCitas(){
+    	Intent i = new Intent(this, ControlCitasActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
+		this.finish();
+    	startActivity(i);
+    }
+    
+	private ArrayList<String> obtener_citas(String token)
+	{
+		JSONParser jParser = new JSONParser();
+	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/citas.json?token=" + token);         // get JSON data from URL
+	   
+	    String identificador;
+	    String hora;
+	    String fecha;
+	    String centro; 
+	    JSONObject cita_actual;
+	    
+        ArrayList<String> lista_muestras = new ArrayList<String>();       		
+        int cantidad_citas = json.length();
+        
+        for (int i = 0; i < cantidad_citas; i++) {
+	        try {
+	        	cita_actual = json.getJSONObject(i);	 
+	        	identificador = cita_actual.get("identificador").toString();
+	        	hora = cita_actual.get("hora").toString();
+	        	fecha = cita_actual.get("fecha").toString();
+	        	centro = cita_actual.get("centro").toString();
+	        	lista_muestras.add(identificador  + "\n  A las " +hora + " del dia " + fecha 
+	        			                          + "\n  En " + centro);
+	        }
+	        catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	    }
+        return lista_muestras;
+	}
+	
+	
 	private void errorAgregarCita(){
 		dialogo.mostrar("Upps...", "Ha ocurrido un error y No se pudo agregar la nueva cita, intentelo otra vez...", this);
 	}
@@ -104,13 +145,5 @@ public class AgregarCitaActivity extends Activity {
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lista_centros);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		miCentro.setAdapter(dataAdapter);
-	}
-	
-	
-	private void ventanaControlCitas(){
-		Intent intent = new Intent(this, ControlCitasActivity.class);
-		intent.putExtra("Token", token);
-		this.finish();
-		startActivity(intent);
 	}
 }

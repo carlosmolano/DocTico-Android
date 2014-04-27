@@ -1,6 +1,7 @@
 package com.example.doctico;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -106,7 +107,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 	    		else if(v.getId() == boton_to_control_presion.getId())
 	    		     VentanaPresion();
 	    		else if(v.getId() == boton_to_control_citas.getId())
-	    			siguientActivity(ControlCitasActivity.class, token);
+	    			VentanaCitas();
     		}
     		else
     			errorConexionInternet();
@@ -118,6 +119,14 @@ public class MenuFuncionalidadesActivity extends Activity {
     	Intent i = new Intent(this, ControlPresionArterialActivity.class);
 		i.putExtra("Token", token);
 		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
+    	startActivity(i);
+    }
+    
+    
+    private void VentanaCitas(){
+    	Intent i = new Intent(this, ControlCitasActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
     	startActivity(i);
     }
     
@@ -155,7 +164,36 @@ public class MenuFuncionalidadesActivity extends Activity {
 	
 	
 
-    
+	private ArrayList<String> obtener_citas(String token)
+	{
+		JSONParser jParser = new JSONParser();
+	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/citas.json?token=" + token);         // get JSON data from URL
+	   
+	    String identificador;
+	    String hora;
+	    String fecha;
+	    String centro; 
+	    JSONObject cita_actual;
+	    
+        ArrayList<String> lista_muestras = new ArrayList<String>();       		
+        int cantidad_citas = json.length();
+        
+        for (int i = 0; i < cantidad_citas; i++) {
+	        try {
+	        	cita_actual = json.getJSONObject(i);	 
+	        	identificador = cita_actual.get("identificador").toString();
+	        	hora = cita_actual.get("hora").toString();
+	        	fecha = cita_actual.get("fecha").toString();
+	        	centro = cita_actual.get("centro").toString();
+	        	lista_muestras.add(identificador  + "\n  A las " +hora + " del dia " + fecha 
+	        			                          + "\n  En " + centro);
+	        }
+	        catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	    }
+        return lista_muestras;
+	}
     
     
 	private void mostrarDialogoTwittear(String titulo, String mensaje, final String mensaje_twitter)
