@@ -1,7 +1,6 @@
 package com.example.doctico;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,6 +12,7 @@ import com.example.doctico.Ayudas.Estado;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,7 +25,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 public class MenuFuncionalidadesActivity extends Activity {
@@ -36,6 +35,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 	private String token;
 	private Estado estado;
 	private Dialogo dialogo;
+	private ProgressDialog progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,12 @@ public class MenuFuncionalidadesActivity extends Activity {
 	    token = getIntent().getExtras().getString("Token");
 	    estado = new Estado();
 	    dialogo = new Dialogo();
+	    
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Cargando Datos....");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		
 		boton_to_centros_salud = (Button)findViewById(R.id.btn_to_centros_de_salud);
 		boton_to_centros_salud.setOnClickListener(Eventos_Botones);    
@@ -104,10 +110,22 @@ public class MenuFuncionalidadesActivity extends Activity {
 	    		    	errorGPS();
 	    		}
 	    		
-	    		else if(v.getId() == boton_to_control_presion.getId())
-	    		     VentanaPresion();
-	    		else if(v.getId() == boton_to_control_citas.getId())
-	    			VentanaCitas();
+	    		else if(v.getId() == boton_to_control_presion.getId()){
+	   	    	    progress.show();
+    	    	    new Thread(){
+    	                public void run(){
+    	                	VentanaPresion();
+    	                }
+    	            }.start();
+	    		}
+	    		else if(v.getId() == boton_to_control_citas.getId()){
+	   	    	    progress.show();
+    	    	    new Thread(){
+    	                public void run(){
+    		    			VentanaCitas();
+    	                }
+    	            }.start();
+	    		}
     		}
     		else
     			errorConexionInternet();
@@ -120,6 +138,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 		i.putExtra("Token", token);
 		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
     	startActivity(i);
+    	progress.dismiss();
     }
     
     
@@ -128,6 +147,7 @@ public class MenuFuncionalidadesActivity extends Activity {
 		i.putExtra("Token", token);
 		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
     	startActivity(i);
+    	progress.dismiss();
     }
     
     
