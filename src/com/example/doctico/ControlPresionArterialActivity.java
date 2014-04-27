@@ -13,6 +13,7 @@ import com.example.doctico.Ayudas.Estado;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,8 +32,9 @@ public class ControlPresionArterialActivity extends Activity {
     private String token;
     private Estado estado;
     private Dialogo dialogo;
+	private ProgressDialog progress;
+	
     ArrayList<String> lista_muestras;
-
     ArrayList<String> diastolicas;
     ArrayList<String> sistolicas;
     ArrayList<String> fechas;
@@ -51,6 +53,12 @@ public class ControlPresionArterialActivity extends Activity {
 	    diastolicas = new ArrayList<String>();
 	    sistolicas = new ArrayList<String>();
 	    fechas = new ArrayList<String>();
+	    
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Cargando Datos....");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 	    
 	    mostrar_muestras_presion_arterial(lista_muestras);
 	    estado = new Estado();
@@ -97,8 +105,14 @@ public class ControlPresionArterialActivity extends Activity {
 		}
 		else if(id == R.id.graficar_muestras)
 		{
-			if(lista_muestras.size()>2)
-				VentanaGrafico();
+			if(lista_muestras.size()>2){
+		    	progress.show();
+	    	    new Thread(){
+	                public void run(){
+	                	VentanaGrafico();
+	                }
+	            }.start();
+			}
 			else
 				mostrarDialogo("Upps...", "Deben de existir al menos 2 muestras para generar el grafico");
 			return true;
@@ -108,7 +122,12 @@ public class ControlPresionArterialActivity extends Activity {
 			return true;
 		}
 		else if (id == R.id.citas){
-			VentanaCitas();
+	    	progress.show();
+    	    new Thread(){
+                public void run(){
+                	VentanaCitas();
+                }
+            }.start();
 			return true;
 		}
 		else if (id == R.id.recomendar_doctico) {
@@ -124,6 +143,24 @@ public class ControlPresionArterialActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	
+    private void VentanaCitas(){
+    	Intent i = new Intent(this, ControlCitasActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
+    	startActivity(i);
+    	progress.dismiss();
+    }
+	
+    private void VentanaGrafico(){
+    	obtener_sistolicas_diastolicas();
+    	Intent i = new Intent(this, GraficoPresionArterialActivity.class);
+		i.putStringArrayListExtra("Sistolicas", sistolicas);
+		i.putStringArrayListExtra("Diastolicas", diastolicas);
+		i.putStringArrayListExtra("Fechas", fechas);
+    	startActivity(i);
+    	progress.dismiss();
+    }
 	
 	private void mostrar_muestras_presion_arterial(ArrayList<String> lista_muestras)
 	{
@@ -167,13 +204,6 @@ public class ControlPresionArterialActivity extends Activity {
 		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
 	}
 	
-	
-    private void VentanaCitas(){
-    	Intent i = new Intent(this, ControlCitasActivity.class);
-		i.putExtra("Token", token);
-		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
-    	startActivity(i);
-    }
     
 	private ArrayList<String> obtener_citas(String token)
 	{
@@ -214,15 +244,6 @@ public class ControlPresionArterialActivity extends Activity {
 		dialog.show();
 	}
 	
-	
-    private void VentanaGrafico(){
-    	obtener_sistolicas_diastolicas();
-    	Intent i = new Intent(this, GraficoPresionArterialActivity.class);
-		i.putStringArrayListExtra("Sistolicas", sistolicas);
-		i.putStringArrayListExtra("Diastolicas", diastolicas);
-		i.putStringArrayListExtra("Fechas", fechas);
-    	startActivity(i);
-    }
 	
     private void siguientActivity(Class siguienteActivity, String token){
     	Intent i = new Intent(this, siguienteActivity);
