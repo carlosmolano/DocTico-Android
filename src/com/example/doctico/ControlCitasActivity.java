@@ -117,6 +117,13 @@ public class ControlCitasActivity extends Activity {
 	    return lista_muestras;
 	}
 	
+	
+	private void mostrar_citas()
+	{
+		
+	}
+	
+	
 	private void obtener_citas(String token)
 	{
 		JSONParser jParser = new JSONParser();

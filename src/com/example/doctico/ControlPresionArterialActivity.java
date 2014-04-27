@@ -97,7 +97,7 @@ public class ControlPresionArterialActivity extends Activity {
 		}
 		else if(id == R.id.graficar_muestras)
 		{
-			if(lista_muestras.size()>1)
+			if(lista_muestras.size()>2)
 				VentanaGrafico();
 			else
 				mostrarDialogo("Upps...", "Deben de existir al menos 2 muestras para generar el grafico");
@@ -132,6 +132,9 @@ public class ControlPresionArterialActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_1, android.R.id.text1, lista_muestras);
         lista_muestras_presion.setAdapter(adapter);
+        
+        if(lista_muestras.size() == 1)
+        	mostrarDialogo("Hora de Iniciar :)", "Utilizar la opcion 'NUEVA MUESTRA' para iniciar tu control de Presion Arterial");
 	}
 	
 	
