@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
       private String token;
       private Estado estado;
       private Dialogo dialogo;
+  	  private ProgressDialog progress;
 	  
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,12 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    	cargarCentros();
 	    	
 	    }
+	    
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Cargando Datos....");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 	  } 
 	  
 	  
@@ -226,11 +234,21 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 			return true;
 		}
 		else if (id == R.id.presion_arterial){
-			VentanaPresion();
+	    	progress.show();
+    	    new Thread(){
+                public void run(){
+        			VentanaPresion();
+                }
+            }.start();
 			return true;
 		}
 		else if (id == R.id.citas){
-			VentanaCitas();
+	    	progress.show();
+    	    new Thread(){
+                public void run(){
+                	VentanaCitas();
+                }
+            }.start();
 			return true;
 		}
 		else if (id == R.id.cerrar_sesion){
@@ -240,6 +258,24 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+    private void VentanaCitas(){
+    	Intent i = new Intent(this, ControlCitasActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
+    	startActivity(i);
+    	progress.dismiss();
+    }
+    
+    
+	private void VentanaPresion(){
+    	Intent i = new Intent(this, ControlPresionArterialActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
+    	startActivity(i);
+    	progress.dismiss();
+    }
 	
 	
 	private void cambiarTipoMapa(int tipo_mapa){
@@ -265,14 +301,6 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	}
 	
 	
-	private void VentanaPresion(){
-    	Intent i = new Intent(this, ControlPresionArterialActivity.class);
-		i.putExtra("Token", token);
-		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
-    	startActivity(i);
-    }
-	
-	
     private void siguientActivity(Class siguienteActivity, String token){
     	Intent i = new Intent(this, siguienteActivity);
 		i.putExtra("Token", token);
@@ -284,14 +312,6 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		dialogo.mostrar("Internet", "Se requiere Internet para completar esta transaccion!", this);
 	}
 	
-	
-    private void VentanaCitas(){
-    	Intent i = new Intent(this, ControlCitasActivity.class);
-		i.putExtra("Token", token);
-		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
-		this.finish();
-    	startActivity(i);
-    }
     
     
 	private ArrayList<String> obtener_citas(String token)
