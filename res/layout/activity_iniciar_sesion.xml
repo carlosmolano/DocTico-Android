@@ -51,15 +51,22 @@
         android:ems="10"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/mensaje_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FF0000"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
         android:id="@+id/btn_inciar_sesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop = "35dp"
+        android:layout_marginTop = "25dp"
         android:textColor="#000099"
         android:text="@string/iniciar_sesion" />
-
     
 </LinearLayout>

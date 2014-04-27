@@ -5,16 +5,22 @@ import com.example.doctico.Ayudas.Dialogo;
 import com.example.doctico.Ayudas.Estado;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 public class IniciarSesionActivity extends Activity {
@@ -22,8 +28,10 @@ public class IniciarSesionActivity extends Activity {
 	private Button boton_iniciar_sesion;        
 	private EditText email;           // Entrada del email
 	private EditText contraseña;      // Entrada del password
+	private TextView mensaje_error;
 	private Dialogo dialogo;
 	private Estado estado;
+	private ProgressDialog progress;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +44,15 @@ public class IniciarSesionActivity extends Activity {
 		dialogo = new Dialogo();
 		estado = new Estado();
 		
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Iniciando Sesion");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
 		boton_iniciar_sesion = (Button)findViewById(R.id.btn_inciar_sesion);      
 		boton_iniciar_sesion.setOnClickListener(Eventos_Botones);                // Llamar a los eventos
+		mensaje_error = (TextView) findViewById(R.id.mensaje_error);
 		
 		email = (EditText)findViewById(R.id.entrada_email);               // Obtener el valor del imput del correo
 		contraseña = (EditText)findViewById(R.id.entrada_password);       // Obtener el valor del input de contrase�a
@@ -75,24 +90,32 @@ public class IniciarSesionActivity extends Activity {
     		{
     			if(estado.ConexionInternetDisponible((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)))
     			{	
-	    			JSONParser jsonparser = new JSONParser();
-	    			String token = jsonparser.autenticar_usuario(email.getText().toString(), contraseña.getText().toString());
-	    			
-	    			if(!token.equals(""))
-	        		 	Ventana_Menu_Funcionalidades(token);
-	    			else
-	    				errorIniciarSesion();
+    	    	    progress.show();
+    	    	    new Thread(){
+    	                public void run(){
+			    			JSONParser jsonparser = new JSONParser();
+			    			String token = jsonparser.autenticar_usuario(email.getText().toString(), contraseña.getText().toString());
+			    			
+			    			progress.dismiss();
+			    			if(!token.equals("")){
+			        		 	Ventana_Menu_Funcionalidades(token);
+			    			}
+    	                }
+    	            }.start();
+    	            errorIniciarSesion();
     			}
-    			else
+    			else{
     				errorConexionInternet();
+    			}
     		}
-    	}
-    };
+         }
+   };
+         
     
     
 	private void errorIniciarSesion(){
-		dialogo.mostrar("Error al Iniciar Sesion", "Los datos no son correctos, intentelo otra vez...", this);
-	    contraseña.setText("");
+        mensaje_error.setText("Datos Invalidos....");
+        contraseña.setText("");
 	}
 	
 	
