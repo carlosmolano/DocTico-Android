@@ -5,6 +5,7 @@ import com.example.doctico.Ayudas.Dialogo;
 import com.example.doctico.Ayudas.Estado;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class CrearCuentaActivity extends Activity {
 	private EditText contraseña_2;  
 	private Dialogo dialogo;
 	private Estado estado;
+	private ProgressDialog progress;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,12 @@ public class CrearCuentaActivity extends Activity {
 		
 		boton_crear_cuenta = (Button)findViewById(R.id.btn_crear_cuenta);      
 		boton_crear_cuenta.setOnClickListener(Eventos_Botones);                // Llamar a los eventos
+		
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Creando la Cuenta...");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		
 		nombre = (EditText)findViewById(R.id.entrada_nombre_crear_cuenta);      
 		email = (EditText)findViewById(R.id.entrada_email_crear_cuenta);
@@ -60,15 +68,19 @@ public class CrearCuentaActivity extends Activity {
     		{
     			if(estado.ConexionInternetDisponible((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)))
     			{	
-	    			JSONParser jsonparser = new JSONParser();
-	    			String respuesta = jsonparser.crear_usuario(nombre.getText().toString(), email.getText().toString(), 
-	    					                                    contraseña.getText().toString(), contraseña_2.getText().toString());
-	    			
-	    			if(respuesta.equals("Si")){
-	    				finalizarEstaVentana();
-	    			}
-	    			else
-	    				errorCrearCuenta();
+    	    	    progress.show();
+    	    	    new Thread(){
+    	                public void run(){
+			    			JSONParser jsonparser = new JSONParser();
+			    			String respuesta = jsonparser.crear_usuario(nombre.getText().toString(), email.getText().toString(), 
+			    					                                    contraseña.getText().toString(), contraseña_2.getText().toString());
+			    			progress.dismiss();
+			    			if(respuesta.equals("Si")){
+			    				finalizarEstaVentana();
+			    			}
+    	                }
+    	    	    }.start();
+    	    	    errorCrearCuenta();
     			}
     			else
     				errorConexionInternet();
@@ -78,9 +90,8 @@ public class CrearCuentaActivity extends Activity {
     
     
 	private void errorCrearCuenta(){
-		dialogo.mostrar("Error al Crear Cuenta", "No se pudo crear la cuenta, intentelo otra vez...", this);
-		contraseña.setText("");
-		contraseña_2.setText("");
+		//contraseña.setText("");
+		//contraseña_2.setText("");
 	}
 	
 	

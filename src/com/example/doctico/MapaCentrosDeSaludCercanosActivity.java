@@ -62,6 +62,7 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    	colocarMiPoscision();
 	    	getLocacionUsuario();
 	    	cargarCentros();
+	    	
 	    }
 	  } 
 	  
@@ -301,7 +302,8 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    String hora;
 	    String fecha;
 	    String centro; 
-	    JSONObject cita_actual;	    
+	    JSONObject cita_actual;
+	    
         ArrayList<String> lista_muestras = new ArrayList<String>();       		
         int cantidad_citas = json.length();
         
