@@ -172,7 +172,6 @@ public class ControlPresionArterialActivity extends Activity {
     	Intent i = new Intent(this, ControlCitasActivity.class);
 		i.putExtra("Token", token);
 		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
-		this.finish();
     	startActivity(i);
     }
     
