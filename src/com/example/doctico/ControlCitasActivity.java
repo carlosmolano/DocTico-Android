@@ -13,6 +13,7 @@ import com.example.doctico.Ayudas.Estado;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,8 +31,8 @@ public class ControlCitasActivity extends Activity {
 	private String token;
 	private Dialogo dialogo;
 	private Estado estado;
-    private int cantidad_citas;
     ArrayList<String> lista_cita;
+	private ProgressDialog progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,13 @@ public class ControlCitasActivity extends Activity {
 		estado = new Estado(); 
 	    token = getIntent().getExtras().getString("Token");
 	    lista_cita = getIntent().getExtras().getStringArrayList("Lista_Citas");
-	   // obtener_citas(token);
+	    
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Cargando Datos....");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
 	    mostrar_citas(lista_cita);
 	}
 
@@ -65,7 +72,12 @@ public class ControlCitasActivity extends Activity {
 			return true;
 		}
 		else if (id == R.id.presion_arterial){
-			VentanaPresion();
+	    	progress.show();
+    	    new Thread(){
+                public void run(){
+                	VentanaPresion();
+                }
+            }.start();
 			return true;
 		}
 		else if (id == R.id.recomendar_doctico) {
@@ -100,6 +112,7 @@ public class ControlCitasActivity extends Activity {
 		i.putExtra("Token", token);
 		i.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
     	startActivity(i);
+    	progress.dismiss();
     }
 	
 	
