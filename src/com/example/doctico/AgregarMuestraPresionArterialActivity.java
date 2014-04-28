@@ -1,7 +1,9 @@
 package com.example.doctico;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,10 +57,13 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
         progress.setCancelable(false);
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-		Calendar calendar = Calendar.getInstance();
-		miTiempo.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
-		miFecha.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" +  calendar.get(Calendar.YEAR));
-		
+        Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(now);
+        String hora = new SimpleDateFormat("HH:mm").format(now);
+	
+        miTiempo.setText(hora);
+        miFecha.setText(fecha);
+        
 		miSistolica.setText("120");
 		miDiastolica.setText("60");
 	}
@@ -90,7 +95,6 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 	{
 		JSONParser jParser = new JSONParser();
 	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/presion_arterial.json?token=" + token);         // get JSON data from URL
-	    String hora;
 	    String fecha;
 	    String sistolica;
 	    String diastolica;
@@ -102,12 +106,11 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 	    if(cantidad_muestras > 0){
 	        for (int i = 0; i < cantidad_muestras; i++) {
 		        try {
-		        	muestra_actual = json.getJSONObject(i);	            
-		        	hora = muestra_actual.get("hora").toString();
+		        	muestra_actual = json.getJSONObject(i);	       
 		        	fecha = muestra_actual.get("fecha").toString();
 		        	sistolica = muestra_actual.get("sistolica").toString();
 		        	diastolica = muestra_actual.get("diastolica").toString();
-		        	lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
+		        	lista_muestras.add("     " + sistolica + "            " + diastolica + "            " + fecha);
 		        }
 		        catch (JSONException e) {
 		            e.printStackTrace();

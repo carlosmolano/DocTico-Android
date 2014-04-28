@@ -158,7 +158,6 @@ public class MenuFuncionalidadesActivity extends Activity {
 	{
 		JSONParser jParser = new JSONParser();
 	    JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/presion_arterial.json?token=" + token);         // get JSON data from URL
-	    String hora;
 	    String fecha;
 	    String sistolica;
 	    String diastolica;
@@ -170,12 +169,11 @@ public class MenuFuncionalidadesActivity extends Activity {
 	    if(cantidad_muestras > 0){
 	        for (int i = 0; i < cantidad_muestras; i++) {
 		        try {
-		        	muestra_actual = json.getJSONObject(i);	            
-		        	hora = muestra_actual.get("hora").toString();
+		        	muestra_actual = json.getJSONObject(i);	        
 		        	fecha = muestra_actual.get("fecha").toString();
 		        	sistolica = muestra_actual.get("sistolica").toString();
 		        	diastolica = muestra_actual.get("diastolica").toString();
-		        	lista_muestras.add("  " + sistolica + "         " + diastolica + "          " + hora + "     " + fecha);
+		        	lista_muestras.add("     " + sistolica + "            " + diastolica + "            " + fecha);
 		        }
 		        catch (JSONException e) {
 		            e.printStackTrace();

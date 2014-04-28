@@ -48,11 +48,11 @@ public class GraficoPresionArterialActivity extends Activity {
 	    
     	grafico_presion_arterial.setHorizontalLabels
         (new String[] {
-        		fechas.get(0).toString().substring(0, 4),
-        		fechas.get((cantidad_muestras/2)/2).toString().substring(0, 4),
-        		fechas.get(cantidad_muestras/2).toString().substring(0, 4),
-        		fechas.get((cantidad_muestras/2) + (cantidad_muestras/2)/2).toString().substring(0, 4),
-        		fechas.get(cantidad_muestras-1).toString().substring(0, 4)
+        		fechas.get(0).toString().substring(0, 5),
+        		fechas.get((cantidad_muestras/2)/2).toString().substring(0, 5),
+        		fechas.get(cantidad_muestras/2).toString().substring(0, 5),
+        		fechas.get((cantidad_muestras/2) + (cantidad_muestras/2)/2).toString().substring(0, 5),
+        		fechas.get(cantidad_muestras-1).toString().substring(0, 5)
         });
 	    LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
 		layout.addView(grafico_presion_arterial);

@@ -164,7 +164,7 @@ public class ControlPresionArterialActivity extends Activity {
 	
 	private void mostrar_muestras_presion_arterial(ArrayList<String> lista_muestras)
 	{
-        lista_muestras.add("  Sis.        Dia.        Hora     Fecha");
+        lista_muestras.add("     Sis.            Dia.          Fecha");
 	    Collections.reverse(lista_muestras);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_1, android.R.id.text1, lista_muestras);

@@ -1,8 +1,8 @@
 package com.example.doctico;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,11 +59,15 @@ public class AgregarCitaActivity extends Activity {
         progress.setMessage("Agregando la nueva cita...");
         progress.setCancelable(false);
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		
-		Calendar calendar = Calendar.getInstance();
-		miTiempo.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
-		miFecha.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" +  calendar.get(Calendar.YEAR));
-		cargarCentros();
+        
+        Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(now);
+        String hora = new SimpleDateFormat("HH:mm").format(now);
+	
+        miTiempo.setText(hora);
+        miFecha.setText(fecha);
+        
+        cargarCentros();
 	}
 	
 	
