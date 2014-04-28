@@ -33,6 +33,11 @@ public class ControlCitasActivity extends Activity {
 	private Estado estado;
     ArrayList<String> lista_cita;
 	private ProgressDialog progress;
+	
+	ArrayList<String> lista_nombres;
+	ArrayList<String> lista_latitudes;
+	ArrayList<String> lista_longitudes;
+	ArrayList<String> lista_mensajes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,12 @@ public class ControlCitasActivity extends Activity {
 			return true;
 		}
 		else if (id == R.id.mapa){
-			siguientActivity(MapaCentrosDeSaludCercanosActivity.class, token);
+	    	progress.show();
+    	    new Thread(){
+                public void run(){
+                	VentanaMapa();
+                }
+            }.start();
 			return true;
 		}
 		else if (id == R.id.presion_arterial){
@@ -147,6 +157,62 @@ public class ControlCitasActivity extends Activity {
     	startActivity(i);
     	progress.dismiss();
     }
+	
+	
+   private void VentanaMapa(){
+    	Intent i = new Intent(this, MapaCentrosDeSaludCercanosActivity.class);
+		i.putExtra("Token", token);
+		obtenerCentrosSalud();
+		i.putStringArrayListExtra("Lista_Nombres", lista_nombres);
+		i.putStringArrayListExtra("Lista_Latitudes", lista_latitudes);
+		i.putStringArrayListExtra("Lista_Longitudes", lista_longitudes);
+		i.putStringArrayListExtra("Lista_Mensajes", lista_mensajes);
+    	startActivity(i);
+    	progress.dismiss();
+    }
+	
+	
+	private void obtenerCentrosSalud(){
+		JSONParser jParser = new JSONParser();
+        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/centros_salud.json?token=" + token);         // get JSON data from URL
+        String nombre;
+        String latitud;
+        String longitud;
+        String tipo;
+        String horario;
+        String descripcion;
+        String mensaje;
+        
+        lista_nombres = new ArrayList<String>();
+        lista_latitudes = new ArrayList<String>();
+        lista_longitudes = new ArrayList<String>();
+        lista_mensajes = new ArrayList<String>();
+        
+        JSONObject centro_actual;
+        
+        if(json.length() > 0){
+	        for (int i = 0; i < json.length(); i++) {
+		        try {
+		            centro_actual = json.getJSONObject(i);	            
+		            nombre = centro_actual.get("nombre").toString();
+		            latitud = centro_actual.get("latitud").toString();
+		            longitud = centro_actual.get("longitud").toString();
+		            tipo = centro_actual.get("tipo").toString();
+		            horario = centro_actual.get("horario").toString();
+		            descripcion = centro_actual.get("descripcion").toString();
+		            mensaje = "Tipo Centro: " + tipo + "\nHorario: " + horario + "\n" + descripcion; 
+		            
+		            lista_nombres.add(nombre);
+		            lista_mensajes.add(mensaje);
+		            lista_latitudes.add(latitud);
+		            lista_longitudes.add(longitud);               
+		        }
+		        catch (JSONException e) {
+		            e.printStackTrace();
+		        }
+		    }
+        }
+	}
 	
 	
 	private ArrayList<String> obtener_muestras_presion_arterial(String token)

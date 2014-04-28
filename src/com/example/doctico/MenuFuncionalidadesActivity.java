@@ -1,7 +1,6 @@
 package com.example.doctico;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +9,7 @@ import org.json.JSONObject;
 import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
 import com.example.doctico.Ayudas.Estado;
+import com.google.android.gms.maps.model.LatLng;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,7 +26,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 public class MenuFuncionalidadesActivity extends Activity {
@@ -38,6 +37,10 @@ public class MenuFuncionalidadesActivity extends Activity {
 	private Estado estado;
 	private Dialogo dialogo;
 	private ProgressDialog progress;
+	ArrayList<String> lista_nombres;
+	ArrayList<String> lista_latitudes;
+	ArrayList<String> lista_longitudes;
+	ArrayList<String> lista_mensajes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,48 @@ public class MenuFuncionalidadesActivity extends Activity {
 	    return true;	    
 	}
 	
+	private void obtenerCentros(){
+		JSONParser jParser = new JSONParser();
+        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/centros_salud.json?token=" + token);         // get JSON data from URL
+        String nombre;
+        String latitud;
+        String longitud;
+        String tipo;
+        String horario;
+        String descripcion;
+        String mensaje;
+        
+        lista_nombres = new ArrayList<String>();
+        lista_latitudes = new ArrayList<String>();
+        lista_longitudes = new ArrayList<String>();
+        lista_mensajes = new ArrayList<String>();
+        
+        JSONObject centro_actual;
+        
+        if(json.length() > 0){
+	        for (int i = 0; i < json.length(); i++) {
+		        try {
+		            centro_actual = json.getJSONObject(i);	            
+		            nombre = centro_actual.get("nombre").toString();
+		            latitud = centro_actual.get("latitud").toString();
+		            longitud = centro_actual.get("longitud").toString();
+		            tipo = centro_actual.get("tipo").toString();
+		            horario = centro_actual.get("horario").toString();
+		            descripcion = centro_actual.get("descripcion").toString();
+		            mensaje = "Tipo Centro: " + tipo + "\nHorario: " + horario + "\n" + descripcion; 
+		            
+		            lista_nombres.add(nombre);
+		            lista_mensajes.add(mensaje);
+		            lista_latitudes.add(latitud);
+		            lista_longitudes.add(longitud);               
+		        }
+		        catch (JSONException e) {
+		            e.printStackTrace();
+		        }
+		    }
+        }
+	}
+	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -106,8 +151,14 @@ public class MenuFuncionalidadesActivity extends Activity {
     		{
 	    		if(v.getId() == boton_to_centros_salud.getId()) 
 	    		{
-	    		    if(estado.GpsDisponible((LocationManager) getSystemService(Context.LOCATION_SERVICE)))
-	    		    	siguientActivity(MapaCentrosDeSaludCercanosActivity.class, token);	
+	    		    if(estado.GpsDisponible((LocationManager) getSystemService(Context.LOCATION_SERVICE))){
+		   	    	    progress.show();
+	    	    	    new Thread(){
+	    	                public void run(){
+	    	                	VentanaMapa();
+	    	                }
+	    	            }.start();
+	    		    }
 	    		    else 
 	    		    	errorGPS();
 	    		}
@@ -134,6 +185,18 @@ public class MenuFuncionalidadesActivity extends Activity {
     	}
     };
     
+    
+    private void VentanaMapa(){
+    	Intent i = new Intent(this, MapaCentrosDeSaludCercanosActivity.class);
+		i.putExtra("Token", token);
+		obtenerCentros();
+		i.putStringArrayListExtra("Lista_Nombres", lista_nombres);
+		i.putStringArrayListExtra("Lista_Latitudes", lista_latitudes);
+		i.putStringArrayListExtra("Lista_Longitudes", lista_longitudes);
+		i.putStringArrayListExtra("Lista_Mensajes", lista_mensajes);
+    	startActivity(i);
+    	progress.dismiss();
+    }
     
     private void VentanaPresion(){
     	Intent i = new Intent(this, ControlPresionArterialActivity.class);

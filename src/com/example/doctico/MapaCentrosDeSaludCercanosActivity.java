@@ -34,7 +34,6 @@ import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMarkerClickListener{
 		  
 	  private GoogleMap map;
@@ -44,18 +43,27 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
       private Estado estado;
       private Dialogo dialogo;
   	  private ProgressDialog progress;
+  	  ArrayList<String> lista_nombres;
+      ArrayList<String> lista_latitudes;
+      ArrayList<String> lista_longitudes;
+      ArrayList<String> lista_mensajes;
 	  
 	  @Override
 	  protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_mapa_centros_de_salud_cercanos);
 	    
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy); 
+		
 	    token = getIntent().getExtras().getString("Token");
 	    estado = new Estado();
 	    dialogo = new Dialogo();
 	    
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy); 
+	    lista_nombres = getIntent().getExtras().getStringArrayList("Lista_Nombres");
+	    lista_latitudes = getIntent().getExtras().getStringArrayList("Lista_Latitudes");
+	    lista_longitudes = getIntent().getExtras().getStringArrayList("Lista_Longitudes");
+	    lista_mensajes = getIntent().getExtras().getStringArrayList("Lista_Mensajes");
 	    
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();       // Obtener Mapa
 	    
@@ -64,7 +72,6 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	    	colocarMiPoscision();
 	    	getLocacionUsuario();
 	    	cargarCentros();
-	    	
 	    }
 	    
         progress = new ProgressDialog(this);
@@ -92,6 +99,14 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 	}
 	
 	
+	private void cargarCentros(){
+	        for (int i = 0; i < lista_nombres.size(); i++) {
+		            agregarMarcador(new LatLng(Double.parseDouble(lista_longitudes.get(i)), Double.parseDouble(lista_latitudes.get(i))), 
+		            		lista_nombres.get(i), lista_mensajes.get(i));                
+		    }
+	}
+	
+	/*
 	private void cargarCentros(){
 		JSONParser jParser = new JSONParser();
         JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/centros_salud.json?token=" + token);         // get JSON data from URL
@@ -123,10 +138,8 @@ public class MapaCentrosDeSaludCercanosActivity extends Activity implements OnMa
 		        }
 		    }
         }
-        else
-        	System.out.println("Este mae esta mamando, debemos tirarlo afuera de la aplicacion");
 	}
-	
+	*/
 	
 	private ArrayList<String> obtener_muestras_presion_arterial(String token)
 	{
