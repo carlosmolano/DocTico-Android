@@ -12,6 +12,7 @@ import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -31,6 +32,7 @@ public class AgregarCitaActivity extends Activity {
 	private Button boton_agregar_cita;
 	private String token;
 	private Dialogo dialogo;
+    private ProgressDialog progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,12 @@ public class AgregarCitaActivity extends Activity {
 		boton_agregar_cita = (Button)findViewById(R.id.btn_agregar_cita);      
 		boton_agregar_cita.setOnClickListener(Eventos_Botones);   
 		
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Agregando la nueva cita...");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		
 		Calendar calendar = Calendar.getInstance();
 		miTiempo.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
 		miFecha.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + calendar.get(Calendar.MONTH) + "/" +  calendar.get(Calendar.YEAR));
@@ -62,21 +70,24 @@ public class AgregarCitaActivity extends Activity {
     	public void onClick(final View v){
     		if(v.getId() == boton_agregar_cita.getId())            // Evento de Ingresar a la aplicaci�n
     		{
-    			String identificador_cita = miIndentificadorCita.getText().toString();
-    			String hora = miTiempo.getText().toString();
-    			String fecha = miFecha.getText().toString();
-    			String centro = miCentro.getSelectedItem().toString();
-    			
-    			JSONParser jsonparser = new JSONParser();
-    			String respuesta = jsonparser.agregar_nueva_cita(token, identificador_cita, hora, fecha, centro);
-    	        
-    			System.out.println(respuesta);
-    			
-    			if(respuesta.equals("Si"))
-    				VentanaCitas();
-    			else
-    				errorAgregarCita();
-    		}
+		    	progress.show();
+        	    new Thread(){
+                    public void run(){
+            			String identificador_cita = miIndentificadorCita.getText().toString();
+            			String hora = miTiempo.getText().toString();
+            			String fecha = miFecha.getText().toString();
+            			String centro = miCentro.getSelectedItem().toString();
+            			
+            			JSONParser jsonparser = new JSONParser();
+            			String respuesta = jsonparser.agregar_nueva_cita(token, identificador_cita, hora, fecha, centro);
+            	        
+            			System.out.println(respuesta);
+            			
+            			if(respuesta.equals("Si"))
+        	                    	VentanaCitas();	
+                    }
+                }.start();
+   	       }
     	}
     };
     
@@ -87,6 +98,7 @@ public class AgregarCitaActivity extends Activity {
 		i.putStringArrayListExtra("Lista_Citas", obtener_citas(token));
 		this.finish();
     	startActivity(i);
+    	progress.dismiss();
     }
     
 	private ArrayList<String> obtener_citas(String token)

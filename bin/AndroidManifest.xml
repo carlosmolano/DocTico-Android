@@ -79,7 +79,8 @@
         </activity>
         <activity
             android:name="com.example.doctico.GraficoPresionArterialActivity"
-            android:label="@string/title_activity_grafico_presion_arterial" >
+            android:label="@string/title_activity_grafico_presion_arterial" 
+            android:screenOrientation="sensorLandscape">
         </activity>
     </application>
 

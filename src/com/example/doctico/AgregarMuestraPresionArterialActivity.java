@@ -11,6 +11,7 @@ import com.example.doctico.AccesoDatos.JSONParser;
 import com.example.doctico.Ayudas.Dialogo;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -28,6 +29,7 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 	private String token;
 	private Dialogo dialogo;
 	private Button boton_agregar_muestra;
+    private ProgressDialog progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,12 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 		
 		boton_agregar_muestra = (Button)findViewById(R.id.btn_agregar_muestra);      
 		boton_agregar_muestra.setOnClickListener(Eventos_Botones);   
+		
+        progress = new ProgressDialog(this);
+        progress.setTitle("Por favor espere!!");
+        progress.setMessage("Agregando la nueva muestra de presion arterial...");
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
 		Calendar calendar = Calendar.getInstance();
 		miTiempo.setText(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
@@ -62,14 +70,17 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
     	{
     		if(v.getId() == boton_agregar_muestra.getId())            // Evento de Ingresar a la aplicaci�n
     		{
-    			JSONParser jsonparser = new JSONParser();
-    			String respuesta = jsonparser.agregar_muestra_presion(token, miTiempo.getText().toString(), 
-    					           miFecha.getText().toString(), miSistolica.getText().toString(), miDiastolica.getText().toString());		
-    			
-    			if(respuesta.equals("Si")) 
-    				ventanaControlṔresion();
-    			else
-    				errorAgregarMuestra();   
+		    	progress.show();
+        	    new Thread(){
+                    public void run(){
+		    			JSONParser jsonparser = new JSONParser();
+		    			String respuesta = jsonparser.agregar_muestra_presion(token, miTiempo.getText().toString(), 
+		    					           miFecha.getText().toString(), miSistolica.getText().toString(), miDiastolica.getText().toString());		
+		    			
+		    			if(respuesta.equals("Si"))
+		    				ventanaControlṔresion();
+                    }
+                }.start();
     		}
     	}
     };
@@ -118,5 +129,6 @@ public class AgregarMuestraPresionArterialActivity extends Activity {
 		intent.putStringArrayListExtra("Lista_Muestras", obtener_muestras_presion_arterial(token));
 		this.finish();
 		startActivity(intent);
+		progress.dismiss();
 	}
 }
