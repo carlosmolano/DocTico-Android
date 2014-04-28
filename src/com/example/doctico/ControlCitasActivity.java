@@ -64,7 +64,12 @@ public class ControlCitasActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.agregar_cita) {
-			siguientActivity(AgregarCitaActivity.class, token);
+	    	progress.show();
+    	    new Thread(){
+                public void run(){
+                	VentanaAgregarCita();
+                }
+            }.start();
 			return true;
 		}
 		else if (id == R.id.mapa){
@@ -106,7 +111,35 @@ public class ControlCitasActivity extends Activity {
 	}
 	
 	
+	private ArrayList<String> obtenerCentros(){
+		ArrayList<String> lista_centros = new ArrayList<String>();
+		lista_centros.add("Centro por Defecto");
+		
+		JSONParser jParser = new JSONParser();
+        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/nombres_centros_salud.json?token=" + token);         // get JSON data from URL
+
+        for (int i = 0; i < json.length(); i++) {
+	        try {            
+	            lista_centros.add(json.getJSONObject(i).get("nombre").toString());
+	        }
+	        catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	    }
+        
+		return lista_centros;
+	}
 	
+	
+    private void VentanaAgregarCita(){
+    	Intent i = new Intent(this, AgregarCitaActivity.class);
+		i.putExtra("Token", token);
+		i.putStringArrayListExtra("Lista_Centros", obtenerCentros());
+    	startActivity(i);
+    	progress.dismiss();
+    }
+	
+    
 	private void VentanaPresion(){
     	Intent i = new Intent(this, ControlPresionArterialActivity.class);
 		i.putExtra("Token", token);

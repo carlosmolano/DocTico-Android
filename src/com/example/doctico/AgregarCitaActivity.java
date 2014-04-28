@@ -33,6 +33,7 @@ public class AgregarCitaActivity extends Activity {
 	private String token;
 	private Dialogo dialogo;
     private ProgressDialog progress;
+    ArrayList<String> lista_centros;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class AgregarCitaActivity extends Activity {
 		StrictMode.setThreadPolicy(policy); 
 		
 	    token = getIntent().getExtras().getString("Token");
+	    lista_centros = getIntent().getExtras().getStringArrayList("Lista_Centros");
 	    dialogo = new Dialogo();
 		miIndentificadorCita = (EditText) findViewById(R.id.entrada_nombre_cita);
 		miTiempo = (EditText) findViewById(R.id.texto_hora);
@@ -138,22 +140,7 @@ public class AgregarCitaActivity extends Activity {
 	}
     
     
-	private void cargarCentros(){
-		List<String> lista_centros = new ArrayList<String>();
-		lista_centros.add("Centro por Defecto");
-		
-		JSONParser jParser = new JSONParser();
-        JSONArray json = jParser.getJSONFromUrl("http://doctico.herokuapp.com/api/api_doc_tico/nombres_centros_salud.json?token=" + token);         // get JSON data from URL
-
-        for (int i = 0; i < json.length(); i++) {
-	        try {            
-	            lista_centros.add(json.getJSONObject(i).get("nombre").toString());
-	        }
-	        catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-	    }
-        
+	private void cargarCentros(){        
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lista_centros);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		miCentro.setAdapter(dataAdapter);

@@ -1,6 +1,7 @@
 package com.example.doctico;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 public class MenuFuncionalidadesActivity extends Activity {
@@ -150,7 +152,8 @@ public class MenuFuncionalidadesActivity extends Activity {
     	progress.dismiss();
     }
     
-    
+	
+	
 	private ArrayList<String> obtener_muestras_presion_arterial(String token)
 	{
 		JSONParser jParser = new JSONParser();
